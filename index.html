@@ -33,30 +33,31 @@
       search nav : Lorem ipsum dolor sit amet.
     </section>
     <section class="grid-container">
-      <!-- <img onclick="editMeme(1)" src="img/img-gall/1.jpg" alt="">
-      <img onclick="editMeme(2)" src="img/img-gall/2.jpg" alt="">
-      <img onclick="editMeme(3)" src="img/img-gall/3.jpg" alt="">
-      <img onclick="editMeme(4)" src="img/img-gall/4.jpg" alt="">
-      <img onclick="editMeme(5)" src="img/img-gall/5.jpg" alt="">
-      <img onclick="editMeme(6)" src="img/img-gall/6.jpg" alt="">
-      <img onclick="editMeme(7)" src="img/img-gall/7.jpg" alt="">
-      <img onclick="editMeme(8)" src="img/img-gall/8.jpg" alt="">
-      <img onclick="editMeme(9)" src="img/img-gall/9.jpg" alt="">
-      <img onclick="editMeme(10)" src="img/img-gall/10.jpg" alt="">
-      <img onclick="editMeme(11)" src="img/img-gall/11.jpg" alt="">
-      <img onclick="editMeme(12)" src="img/img-gall/12.jpg" alt="">
-      <img onclick="editMeme(13)" src="img/img-gall/13.jpg" alt="">
-      <img onclick="editMeme(14)" src="img/img-gall/14.jpg" alt="">
-      <img onclick="editMeme(15)" src="img/img-gall/15.jpg" alt="">
-      <img onclick="editMeme(16)" src="img/img-gall/16.jpg" alt="">
-      <img onclick="editMeme(17)" src="img/img-gall/17.jpg" alt="">
-      <img onclick="editMeme(18)" src="img/img-gall/18.jpg" alt=""> -->
+      <!-- <img onclick="startEditMeme(1)" src="img/img-gall/1.jpg" alt="">
+      <img onclick="startEditMeme(2)" src="img/img-gall/2.jpg" alt="">
+      <img onclick="startEditMeme(3)" src="img/img-gall/3.jpg" alt="">
+      <img onclick="startEditMeme(4)" src="img/img-gall/4.jpg" alt="">
+      <img onclick="startEditMeme(5)" src="img/img-gall/5.jpg" alt="">
+      <img onclick="startEditMeme(6)" src="img/img-gall/6.jpg" alt="">
+      <img onclick="startEditMeme(7)" src="img/img-gall/7.jpg" alt="">
+      <img onclick="startEditMeme(8)" src="img/img-gall/8.jpg" alt="">
+      <img onclick="startEditMeme(9)" src="img/img-gall/9.jpg" alt="">
+      <img onclick="startEditMeme(10)" src="img/img-gall/10.jpg" alt="">
+      <img onclick="startEditMeme(11)" src="img/img-gall/11.jpg" alt="">
+      <img onclick="startEditMeme(12)" src="img/img-gall/12.jpg" alt="">
+      <img onclick="startEditMeme(13)" src="img/img-gall/13.jpg" alt="">
+      <img onclick="startEditMeme(14)" src="img/img-gall/14.jpg" alt="">
+      <img onclick="startEditMeme(15)" src="img/img-gall/15.jpg" alt="">
+      <img onclick="startEditMeme(16)" src="img/img-gall/16.jpg" alt="">
+      <img onclick="startEditMeme(17)" src="img/img-gall/17.jpg" alt="">
+      <img onclick="startEditMeme(18)" src="img/img-gall/18.jpg" alt=""> -->
     </section>
   </main>
 
   <main class="meme-editor main-layout flex" hidden>
-    <canvas class="">
-    </canvas>
+    <section class="canvas-container">
+      <canvas id="my-canvas" height="450px" width="450px" onclick="onCanvas(event)" ></canvas>
+    </section>
     <section class="editor">
       HI
     </section>
@@ -69,8 +70,10 @@
 
   <script src="js/services/img-service.js"></script>
   <script src="js/services/meme-service.js"></script>
+  <script src="js/services/canvas-service.js"></script>
   <script src="js/gallery-controller.js"></script>
   <script src="js/meme-controller.js"></script>
+  <script src="js/nav-controller.js"></script>
 </body>
 
 </html>

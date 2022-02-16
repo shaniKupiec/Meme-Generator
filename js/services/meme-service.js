@@ -1,7 +1,6 @@
 "use strict";
 
 var gMeme;
-
 // var gMeme = {
 //   selectedImgId: 5,
 //   selectedLineIdx: 0,
@@ -19,16 +18,13 @@ var gMeme;
 //   ],
 // };
 
-function setLineTxt(){
-    
+function createMeme(imgIdx) {
+  gMeme = {
+    selectedImgId: imgIdx
+  };
+//   console.log('createMeme');
 }
 
-function createMeme(imgIdx){
-    gMeme = {
-        selectedImgId: imgIdx,   
-    };
-}
-
-function getMeme(){
-    return gMeme;
+function getMeme() {
+  return gMeme;
 }

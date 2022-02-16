@@ -9,7 +9,7 @@ function init(){
 function renderGallery(){
     var imgs = getImgs();
     var str = imgs.map( (img, index) =>
-    `<img onclick="editMeme(${index + 1})" src="${img.url}" alt=""></img>`
+    `<img data-img="${index + 1}" onclick="startEditMeme(${index + 1})" src="${img.url}" alt=""></img>`
     );
     document.querySelector('.grid-container').innerHTML = str.join('');
 }

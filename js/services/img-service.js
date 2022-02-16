@@ -37,3 +37,7 @@ function createImg(imgIdx, keywords){
         keywords
     }
 }
+
+// function getImgIdx(imgIdx){
+//     return gImgs[imgIdx-1];
+// }
