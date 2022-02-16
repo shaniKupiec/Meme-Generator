@@ -1,0 +1,25 @@
+.main-nav{
+    height: 100px !important;
+}
+
+.main-nav:first-child , .main-nav ul > *{
+    height: fit-content;
+    padding: 10px;
+}
+
+.main-nav:first-child{
+    /* margin-inline-start: 35px; */
+    text-transform: uppercase;
+}
+
+.main-nav ul{
+    /* margin-inline-end: 35px; */
+}
+
+.main-nav ul > *:not(:last-child){
+    margin-inline-end: 35px;
+}
+
+.nav-btn{
+    cursor: pointer;
+}
