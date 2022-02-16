@@ -31,7 +31,10 @@ function onSetLineTxt() {
 // add new text box
 function onAddLineTxt(isFirstLine = false) {
     // if the user start typing without a text box, we dont erase the text
-    if(!isFirstLine) document.querySelector('.btn-input-txt').value = ''
+    if(!isFirstLine){
+        document.querySelector('.btn-input-txt').value = ''
+        // console.log('not first line');
+    }
     addLine()
     addTxtBox()
     renderMeme()

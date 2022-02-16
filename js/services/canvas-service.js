@@ -3,11 +3,13 @@
 var gCanvas;
 var gCtx;
 var txtBoxLocations = [];
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function initCanvas() {
   gCanvas = document.querySelector("#my-canvas");
   gCtx = gCanvas.getContext("2d");
-  //   resizeCanvas();
+  addListeners();
+  resizeCanvas();
 }
 
 function addTxtBox() {
@@ -49,7 +51,7 @@ function setImg() {
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawRect(x, y, isCurrLine, strokeColor,  width = 400, height = 65) {
+function drawRect(x, y, isCurrLine, strokeColor, width = 400, height = 65) {
   var color = isCurrLine ? "red" : "black"; //change
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
@@ -59,8 +61,6 @@ function drawRect(x, y, isCurrLine, strokeColor,  width = 400, height = 65) {
   gCtx.stroke();
 }
 
-// not is use
-
 function resizeCanvas() {
   var elContainer = document.querySelector(".canvas-container");
   gCanvas.width = elContainer.offsetWidth;
@@ -69,6 +69,81 @@ function resizeCanvas() {
   // console.log('resizeCanvas');
 }
 
+function addLisrenderMeme() {
+  addMouseListeners();
+  addTouchListeners();
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+    renderCanvas();
+  });
+}
+
+function addMouseListeners() {
+  gCanvas.addEventListener("mousemove", onMove);
+  gCanvas.addEventListener("mousedown", onDown);
+  gCanvas.addEventListener("mouseup", onUp);
+}
+
+function addTouchListeners() {
+  gCanvas.addEventListener("touchmove", onMove);
+  gCanvas.addEventListener("touchstart", onDown);
+  gCanvas.addEventListener("touchend", onUp);
+}
+
+function isTxtBoxClicked(clickedPos) {
+    const { pos } = gCircle
+    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    return distance <= gCircle.size
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    console.log('onDown()');
+    if (!isCircleClicked(pos)) return
+    setCircleDrag(true)
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+
+}
+
+function onMove(ev) {
+    console.log('onMove()');
+    const circle = getCircle();
+    if (circle.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveCircle(dx, dy)
+        gStartPos = pos
+        renderCanvas()
+    }
+}
+
+function onUp() {
+    console.log('onUp()');
+    setCircleDrag(false)
+    document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
+}
+
+
+
+// not is use
 function draw(ev) {
   const offsetX = ev.offsetX;
   const offsetY = ev.offsetY;

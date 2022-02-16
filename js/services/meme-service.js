@@ -27,9 +27,11 @@ function changeTxtMeme() {
   if (!gMeme.lines.length) {
     onAddLineTxt(true);
     currLine++;
+    // console.log('firstLine');
   }
   // at each change of key we copy the wholl value of the input
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
+//   console.log('here');
 }
 
 function setColor(type, color) {
