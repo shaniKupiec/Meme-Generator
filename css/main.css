@@ -1,27 +1,102 @@
-.main-layout{
-    margin: 0 auto;
-    width: 700px;
-    background-color:#d3d3d340;
+.main-layout {
+  margin: 0 auto;
+  width: 700px;
+  background-color: #d3d3d340;
 }
 
-canvas{
-    background-color:lightsteelblue;
+.grid-container-gall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-flow: row;
+  grid-gap: 10px;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    grid-auto-flow: row;
-    grid-gap: 10px;
+.grid-container-gall > * {
+  border: 1px solid black;
+  text-align: center;
+  height: 150px;
 }
 
-.grid-container > *{
-    border: 1px solid black;
-    text-align: center;
-    height: 150px;
+/* editor */
+
+canvas {
+  background-color: lightsteelblue;
 }
 
-.editor{
-    flex-basis: 50%;
+.editor {
+  flex-basis: 50%;
 }
 
+.grid-container-editor {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    "input     input        input       input         input"
+    ".         swichLine    addLine     removeLine    ."
+    "biggerF   smallerF     a-left      a-center      a-right"
+    "font      font         font        strock        color"
+    ".         .           .           .             ."
+    ".         .            .           .             .";
+  /* "emoji     emoji        emoji       emoji         emoji"
+        ".         .            .           share         download"; */
+  height: 94%;
+  margin: 11px;
+  align-items: center;
+}
+
+.grid-container-editor > *{
+    justify-self: center;
+}
+
+.btn {
+  width: 30px;
+}
+
+.btn-input-txt {
+  grid-area: input;
+}
+
+.btn1 {
+  grid-area: swichLine;
+}
+
+.btn2 {
+  grid-area: addLine;
+}
+
+.btn3 {
+  grid-area: removeLine;
+}
+
+.btn4 {
+  grid-area: biggerF;
+}
+
+.btn5 {
+  grid-area: smallerF;
+}
+
+.btn6 {
+  grid-area: a-left;
+}
+
+.btn7 {
+  grid-area: a-center;
+}
+
+.btn8 {
+  grid-area: a-right;
+}
+
+.btn-select-font {
+  grid-area: font;
+}
+
+.btn9 {
+  grid-area: strock;
+}
+
+.btn10 {
+  grid-area: color;
+}
