@@ -1,5 +1,8 @@
 "use strict";
 
+const elInputTxt = document.querySelector('.btn-input-txt');
+elInputTxt.addEventListener('keyup', onSetLineTxt);
+
 function startEditMeme(imgIdx) {
 //   console.log("startEditMeme", imgIdx);
   initCanvas();
@@ -16,4 +19,15 @@ function renderMeme() {
 //   console.log('renderMeme');
 }
 
-function setLineTxt() {}
+function onSetLineTxt(event) {
+    // console.log('write');
+    console.log(event.key);
+    changeTxtMeme(event.key);
+    renderMeme2();
+}
+
+function onAddLineTxt() {
+    console.log('add line');
+    addLine()
+    addTxtBox()
+}

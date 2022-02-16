@@ -1,5 +1,6 @@
 canvas {
   background-color: lightsteelblue;
+  /* cursor: pointer; */
 }
 
 .editor {
@@ -26,6 +27,7 @@ canvas {
 
 .grid-container-editor > * {
   justify-self: center;
+  cursor: pointer;
 }
 
 .btn {
