@@ -1,20 +1,20 @@
 /* SETUP  */
 
-@import '/css/setup/vars.css';
+@import 'css/setup/vars.css';
 /* @import '/css/setup/typography.css'; */
 
 /* BASE */
 
-@import '/css/base/base.css';
-@import '/css/base/helpers.css';
-@import '/css/base/layout.css';
-@import '/css/base/mq.css';
+@import 'css/base/base.css';
+@import 'css/base/helpers.css';
+@import 'css/base/layout.css';
+@import 'css/base/mq.css';
 
 /* COMPONENTS */
 
-@import '/css/components/header.css';
-@import '/css/components/main-gall.css';
-@import '/css/components/main-editor.css';
+@import 'css/components/header.css';
+@import 'css/components/main-gall.css';
+@import 'css/components/main-editor.css';
 
 /* @import '/css/components/footer.css';
 @import '/css/components/card.css';
