@@ -78,6 +78,10 @@ function getLinesInfo() {
   return gMeme.lines;
 }
 
+function getCurrLineIdx(){
+    return gMeme.selectedLineIdx
+}
+
 function setSelectedLine(lineIdx) {
   gMeme.selectedImgId = lineIdx;
 }

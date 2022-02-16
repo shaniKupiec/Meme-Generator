@@ -3,28 +3,37 @@
 var gCanvas;
 var gCtx;
 var txtBoxLocations = [];
+var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function initCanvas() {
   gCanvas = document.querySelector("#my-canvas");
   gCtx = gCanvas.getContext("2d");
-  addListeners();
+//   addListenersMeme();
   resizeCanvas();
 }
 
 function addTxtBox() {
   var lines = getLinesInfo();
   if (lines.length === 1) {
-    var txtBox = { x: 25, y: 0 };
-    txtBoxLocations.push(txtBox);
+    txtBoxLocations.push(createTxtBox(25, 0));
     return;
   }
   if (lines.length === 2) {
-    var txtBox = { x: 25, y: 385 };
-    txtBoxLocations.push(txtBox);
+    txtBoxLocations.push(createTxtBox(25,385));
     return;
   }
   // add text box in the middle
+}
+
+function createTxtBox(x, y){
+    return {
+        x,
+        y,
+        height: 65,
+        width: 400,
+        isDrag:false
+    }
 }
 
 function renderMeme() {
@@ -33,9 +42,8 @@ function renderMeme() {
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine)
-      document.querySelector(".btn-input-txt").value = txtInfo.txt;
-    drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.strokeColor);
+    if (isCurrLine) document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.strokeColor, txtBox.width, txtBox.height);
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
     gCtx.textAlign = txtInfo.align; // add
@@ -51,7 +59,7 @@ function setImg() {
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawRect(x, y, isCurrLine, strokeColor, width = 400, height = 65) {
+function drawRect(x, y, isCurrLine, strokeColor, width, height) {
   var color = isCurrLine ? "red" : "black"; //change
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
@@ -69,7 +77,10 @@ function resizeCanvas() {
   // console.log('resizeCanvas');
 }
 
-function addLisrenderMeme() {
+
+// drag and drop
+
+function addListenersMeme() {
   addMouseListeners();
   addTouchListeners();
   window.addEventListener("resize", () => {
@@ -90,39 +101,51 @@ function addTouchListeners() {
   gCanvas.addEventListener("touchend", onUp);
 }
 
+// check if a txt box was clicked
 function isTxtBoxClicked(clickedPos) {
-    const { pos } = gCircle
-    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-    return distance <= gCircle.size
+    var lineIdx
+    txtBoxLocations.forEach( (txtBox, index) => {
+        const distance = clickedPos.x - txtBox.x <= width
+        if(txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= width){
+            if(txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= width) lineIdx = index
+        }
+    })
+    return lineIdx
 }
 
 function onDown(ev) {
     const pos = getEvPos(ev)
     console.log('onDown()');
-    if (!isCircleClicked(pos)) return
-    setCircleDrag(true)
+    var currLine = isTxtBoxClicked(pos)
+    if (!currLine) return
+    setSelectedLine(currLine)
+    setBoxDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
+}
 
+function setBoxDrag(isDrag){
+    var idx = getCurrLineIdx()
+    txtBoxLocations[idx].isDrag = isDrag;
 }
 
 function onMove(ev) {
     console.log('onMove()');
-    const circle = getCircle();
-    if (circle.isDrag) {
+    var idx = getCurrLineIdx()
+    if (txtBoxLocations[idx].isDrag) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
-        moveCircle(dx, dy)
+        // moveTxtBox(dx, dy)
         gStartPos = pos
-        renderCanvas()
+        renderMeme()
     }
 }
 
 function onUp() {
     console.log('onUp()');
-    setCircleDrag(false)
-    document.body.style.cursor = 'grab'
+    setBoxDrag(false)
+    document.body.style.cursor = 'grab' // normal cursor
 }
 
 function getEvPos(ev) {
