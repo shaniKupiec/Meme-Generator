@@ -8,11 +8,25 @@
   <meta name="author" content="">
   <title>Proj Name</title>
   
+  <link href="css/var.css" rel="stylesheet">
+  <link href="css/helpers.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body>
 
+  <nav>
+    <div class="main-nav flex space-between align-center">
+      <span class="logo" title="this is our logo">logo</span>
+      <ul class="clean-list flex">
+        <li class="gallery nav-btn" onclick="showGallery()">Gallery</li>
+        <li class="memes nav-btn" onclick="showMemes()">Memes</li>
+        <li class="about nav-btn" onclick="showAbout()">About</li>
+      </ul>
+    </div>
+  </nav>
+
+  <script src="js/services/meme.js"></script>
   <script src="js/main.js"></script>
 </body>
 
