@@ -1,62 +1,38 @@
 "use strict";
 
 var gMeme;
-// var gMeme = {
-//   selectedImgId: 5,
-//   selectedLineIdx: 0,
-//   lines: [
-//     {
-//       txt: "I sometimes eat Falafel",
-//       size: 20,
-//       align: "left",
-//     },
-//     {
-//       txt: "I sometimes eat Falafel",
-//       size: 20,
-//       align: "left",
-//     },
-//   ],
-// };
 
 function createMeme(imgIdx) {
   gMeme = {
     selectedImgId: imgIdx,
-    selectedLineIdx: 0,
+    selectedLineIdx: -1,
     lines: [],
   };
   //   console.log('createMeme');
 }
 
-function changeTxtMeme(key){
-    var currLine = gMeme.selectedLineIdx
-    // console.log(currLine);
-    if(!gMeme.lines.length){ 
-        onAddLineTxt()
-        gMeme.selectedLineIdx;
-        currLine;
-    }
-    gMeme.lines[currLine].txt = (key === "Backspace") ? gMeme.lines[currLine].txt.slice(0, -1) : gMeme.lines[currLine].txt += key;
-    // console.log(gMeme.lines[currLine].txt);
+function switchLine() {
+  gMeme.selectedLineIdx =
+    gMeme.selectedLineIdx === gMeme.lines.length - 1
+      ? 0
+      : gMeme.selectedLineIdx + 1;
+  //   console.log(gMeme.selectedLineIdx);
 }
 
-function getCurrLine(){
-    return gMeme.selectedLineIdx;
+function changeTxtMeme() {
+  var currLine = gMeme.selectedLineIdx;
+  // if the user start typing without a text box, we create one
+  if (!gMeme.lines.length) {
+    onAddLineTxt(true);
+    currLine++;
+  }
+  // at each change of key we copy the wholl value of the input
+  gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
 }
 
-// function getMeme(){
-//     return gMeme.lines[gMeme.selectedLineIdx];
-// }
-
-function getLinesInfo(){
-    return gMeme.lines;
-}
-
-function setSelectedLine(lineIdx){
-    gMeme.selectedImgId = lineIdx;
-}
-
-function addLine(){
-    gMeme.lines.push(ceateLine())
+function addLine() {
+  gMeme.lines.push(ceateLine());
+  gMeme.selectedLineIdx++;
 }
 
 function ceateLine() {
@@ -64,10 +40,18 @@ function ceateLine() {
     txt: "",
     size: 40,
     align: "left",
-    font: 'emoji'
+    font: "emoji",
   };
 }
 
 function getMeme() {
   return gMeme;
+}
+
+function getLinesInfo() {
+  return gMeme.lines;
+}
+
+function setSelectedLine(lineIdx) {
+  gMeme.selectedImgId = lineIdx;
 }
