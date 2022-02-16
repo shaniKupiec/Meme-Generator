@@ -30,6 +30,10 @@ canvas {
   cursor: pointer;
 }
 
+.colorBtn {
+  width: 29px;
+}
+
 .btn {
   width: 30px;
 }

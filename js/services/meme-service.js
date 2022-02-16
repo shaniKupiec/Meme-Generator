@@ -1,6 +1,8 @@
 "use strict";
 
 var gMeme;
+var gStrokeColor = "black";
+var gTextColor = "black";
 
 function createMeme(imgIdx) {
   gMeme = {
@@ -30,6 +32,26 @@ function changeTxtMeme() {
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
 }
 
+function setColor(type, color) {
+  gMeme.lines.forEach((txtBox) => {
+    txtBox[type] = color;
+  });
+  if (type === "strokeColor") gStrokeColor = color;
+  else gTextColor = color;
+}
+
+function changeAlign(position) {
+  var currLine = gMeme.selectedLineIdx;
+  if (!gMeme.lines.length) return;
+  gMeme.lines[currLine].align = position;
+}
+
+function changeFontSize(isIncrease) {
+  var currLine = gMeme.selectedLineIdx;
+  if (!gMeme.lines.length) return;
+  gMeme.lines[currLine].size += isIncrease ? 5 : -5;
+}
+
 function addLine() {
   gMeme.lines.push(ceateLine());
   gMeme.selectedLineIdx++;
@@ -41,6 +63,8 @@ function ceateLine() {
     size: 40,
     align: "left",
     font: "emoji",
+    fontColor: gTextColor,
+    strokeColor: gStrokeColor,
   };
 }
 

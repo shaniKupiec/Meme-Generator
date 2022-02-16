@@ -36,3 +36,26 @@ function onAddLineTxt(isFirstLine = false) {
     addTxtBox()
     renderMeme()
 }
+
+function setAlign(position){
+    changeAlign(position)
+    renderMeme()
+}
+
+function setFontSize(isIncrease){
+    changeFontSize(isIncrease);
+    renderMeme()
+}
+
+// change color
+function setStrokeColor(){
+    const color = document.querySelector('[name=strokeColor]').value;
+    setColor('strokeColor', color)
+    renderMeme()
+}
+
+function setTextColor(){
+    const color = document.querySelector('[name=textColor]').value;
+    setColor('fontColor', color)
+    renderMeme()
+}

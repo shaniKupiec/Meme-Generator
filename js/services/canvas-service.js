@@ -1,7 +1,5 @@
 "use strict";
 
-// var gStrokeColor;
-// var gFillColor;
 var gCanvas;
 var gCtx;
 var txtBoxLocations = [];
@@ -33,14 +31,15 @@ function renderMeme() {
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if(isCurrLine) document.querySelector('.btn-input-txt').value = txtInfo.txt
-    drawRect(txtBox.x, txtBox.y, isCurrLine);
+    if (isCurrLine)
+      document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.strokeColor);
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
+    gCtx.textAlign = txtInfo.align; // add
+    gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
     gCtx.fillText(txtInfo.txt, txtBox.x + 25, txtBox.y + 40);
-
-
   });
 }
 
@@ -50,13 +49,13 @@ function setImg() {
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawRect(x, y, isCurrLine, width = 400, height = 65) {
-  var color = isCurrLine ? "red" : "black";
+function drawRect(x, y, isCurrLine, strokeColor,  width = 400, height = 65) {
+  var color = isCurrLine ? "red" : "black"; //change
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
   //   gCtx.fillStyle = color;
   //   gCtx.fillRect(x, y, width, height);
-  gCtx.strokeStyle = color;
+  gCtx.strokeStyle = strokeColor;
   gCtx.stroke();
 }
 
