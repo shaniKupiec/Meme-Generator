@@ -9,7 +9,7 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 function initCanvas() {
   gCanvas = document.querySelector("#my-canvas");
   gCtx = gCanvas.getContext("2d");
-//   addListenersMeme();
+  addListenersMeme();
   resizeCanvas();
 }
 
@@ -24,6 +24,12 @@ function addTxtBox() {
     return;
   }
   // add text box in the middle
+}
+
+function deleteTxtBox(){
+  var currLine = getCurrLineIdx()
+  txtBoxLocations.splice(currLine, 1);
+  console.log(txtBoxLocations);
 }
 
 function createTxtBox(x, y){
@@ -42,14 +48,16 @@ function renderMeme() {
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine) document.querySelector(".btn-input-txt").value = txtInfo.txt;
-    drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.strokeColor, txtBox.width, txtBox.height);
+    if (isCurrLine && !getFirstLine()) document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
+    gCtx.strokeStyle = txtInfo.outlineColor;
     gCtx.textAlign = txtInfo.align; // add
     gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
     gCtx.fillText(txtInfo.txt, txtBox.x + 25, txtBox.y + 40);
+    gCtx.strokeText(txtInfo.txt, txtBox.x + 25, txtBox.y + 40);
   });
 }
 
@@ -59,13 +67,13 @@ function setImg() {
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawRect(x, y, isCurrLine, strokeColor, width, height) {
+function drawRect(x, y, isCurrLine, width, height) {
   var color = isCurrLine ? "red" : "black"; //change
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
   //   gCtx.fillStyle = color;
   //   gCtx.fillRect(x, y, width, height);
-  gCtx.strokeStyle = strokeColor;
+  gCtx.strokeStyle = color;
   gCtx.stroke();
 }
 
@@ -85,7 +93,7 @@ function addListenersMeme() {
   addTouchListeners();
   window.addEventListener("resize", () => {
     resizeCanvas();
-    renderCanvas();
+    renderMeme()
   });
 }
 
@@ -105,9 +113,8 @@ function addTouchListeners() {
 function isTxtBoxClicked(clickedPos) {
     var lineIdx
     txtBoxLocations.forEach( (txtBox, index) => {
-        const distance = clickedPos.x - txtBox.x <= width
-        if(txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= width){
-            if(txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= width) lineIdx = index
+        if(txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= gCanvas.width){
+            if(txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= gCanvas.height) lineIdx = index
         }
     })
     return lineIdx
@@ -132,14 +139,19 @@ function setBoxDrag(isDrag){
 function onMove(ev) {
     console.log('onMove()');
     var idx = getCurrLineIdx()
+    if(idx === -1) return
     if (txtBoxLocations[idx].isDrag) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
-        // moveTxtBox(dx, dy)
+        moveTxtBox(dx, dy)
         gStartPos = pos
         renderMeme()
     }
+}
+
+function moveTxtBox(x, y){
+  // drawRect(x, y, true, 'black', 400, 65)
 }
 
 function onUp() {
@@ -190,12 +202,12 @@ function draw(ev) {
   }
 }
 
-function changeTxtCanvas() {
-  var meme = getMeme();
-  if (!txtBoxLocations.length) return;
-  var currLineBox = txtBoxLocations[meme.selectedLineIdx];
-  var txtInfo = meme.lines[meme.selectedLineIdx];
+// function changeTxtCanvas() {
+//   var meme = getMeme();
+//   if (!txtBoxLocations.length) return;
+//   var currLineBox = txtBoxLocations[meme.selectedLineIdx];
+//   var txtInfo = meme.lines[meme.selectedLineIdx];
 
-  gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
-  gCtx.fillText(txtInfo.txt, currLineBox.x + 10, currLineBox.y + 10);
-}
+//   gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
+//   gCtx.fillText(txtInfo.txt, currLineBox.x + 10, currLineBox.y + 10);
+// }

@@ -1,8 +1,9 @@
 "use strict";
 
 var gMeme;
-var gStrokeColor = "black";
-var gTextColor = "black";
+var gOutlineColor = "black";
+var gTextColor = "white";
+var gFont = "Impact"
 
 function createMeme(imgIdx) {
   gMeme = {
@@ -21,25 +22,49 @@ function switchLine() {
   //   console.log(gMeme.selectedLineIdx);
 }
 
+function deleteLine(){
+  var currLine = gMeme.selectedLineIdx;
+  console.log('gMeme.selectedLineIdx ',gMeme.selectedLineIdx );
+  gMeme.lines.splice(currLine, 1);
+  console.log(gMeme);
+  if(!gMeme.lines.length){
+    gMeme.selectedLineIdx = -1;
+    document.querySelector(".btn-input-txt").value = ''
+  }
+  else gMeme.selectedLineIdx = 0;
+  console.log('gMeme.selectedLineIdx ',gMeme.selectedLineIdx );
+  
+}
+
 function changeTxtMeme() {
   var currLine = gMeme.selectedLineIdx;
   // if the user start typing without a text box, we create one
-  if (!gMeme.lines.length) {
-    onAddLineTxt(true);
+  if (currLine === -1) {
+    toggleFirstLine()
+    onAddLineTxt();
     currLine++;
     // console.log('firstLine');
   }
   // at each change of key we copy the wholl value of the input
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
-//   console.log('here');
+  // debugger
+  // console.log('here');
+  if(getFirstLine()) toggleFirstLine()
 }
 
 function setColor(type, color) {
-  gMeme.lines.forEach((txtBox) => {
-    txtBox[type] = color;
+  gMeme.lines.forEach((line) => {
+    line[type] = color;
   });
-  if (type === "strokeColor") gStrokeColor = color;
+  if (type === "outlineColor") gOutlineColor = color;
   else gTextColor = color;
+}
+
+function setFont(newFont) {
+  gMeme.lines.forEach((line) => {
+    line.font = newFont;
+  });
+  gFont = newFont
 }
 
 function changeAlign(position) {
@@ -56,6 +81,7 @@ function changeFontSize(isIncrease) {
 
 function addLine() {
   gMeme.lines.push(ceateLine());
+  console.log(gMeme);
   gMeme.selectedLineIdx++;
 }
 
@@ -64,9 +90,9 @@ function ceateLine() {
     txt: "",
     size: 40,
     align: "left",
-    font: "emoji",
+    font: gFont,
     fontColor: gTextColor,
-    strokeColor: gStrokeColor,
+    outlineColor: gOutlineColor,
   };
 }
 

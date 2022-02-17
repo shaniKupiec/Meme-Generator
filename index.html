@@ -29,134 +29,124 @@
       <section class="search-nav">
         search nav : Lorem ipsum dolor sit amet.
       </section>
-      <section class="grid-container-gall">
-        <!-- <img onclick="startEditMeme(1)" src="img/img-gall/1.jpg" alt="">
-      <img onclick="startEditMeme(2)" src="img/img-gall/2.jpg" alt="">
-      <img onclick="startEditMeme(3)" src="img/img-gall/3.jpg" alt="">
-      <img onclick="startEditMeme(4)" src="img/img-gall/4.jpg" alt="">
-      <img onclick="startEditMeme(5)" src="img/img-gall/5.jpg" alt="">
-      <img onclick="startEditMeme(6)" src="img/img-gall/6.jpg" alt="">
-      <img onclick="startEditMeme(7)" src="img/img-gall/7.jpg" alt="">
-      <img onclick="startEditMeme(8)" src="img/img-gall/8.jpg" alt="">
-      <img onclick="startEditMeme(9)" src="img/img-gall/9.jpg" alt="">
-      <img onclick="startEditMeme(10)" src="img/img-gall/10.jpg" alt="">
-      <img onclick="startEditMeme(11)" src="img/img-gall/11.jpg" alt="">
-      <img onclick="startEditMeme(12)" src="img/img-gall/12.jpg" alt="">
-      <img onclick="startEditMeme(13)" src="img/img-gall/13.jpg" alt="">
-      <img onclick="startEditMeme(14)" src="img/img-gall/14.jpg" alt="">
-      <img onclick="startEditMeme(15)" src="img/img-gall/15.jpg" alt="">
-      <img onclick="startEditMeme(16)" src="img/img-gall/16.jpg" alt="">
-      <img onclick="startEditMeme(17)" src="img/img-gall/17.jpg" alt="">
-      <img onclick="startEditMeme(18)" src="img/img-gall/18.jpg" alt=""> -->
-      </section>
+      <section class="grid-container-gall"></section>
     </main>
 
-    <main class="meme-editor main-layout flex" hidden>
-      <section class="canvas-container">
-        <canvas
-          id="my-canvas"
-          height="450px"
-          width="450px"
-          onclick="onCanvas(event)"
-        ></canvas>
-      </section>
+    <main class="main-content" hidden>
+      <section class="meme-editor main-layout flex">
+        <section class="canvas-container" height="450px" width="450px">
+          <canvas id="my-canvas" height="450px" width="450px">
+            Your browser does not support the canvas element.
+          </canvas>
+        </section>
 
-      <section class="editor">
-        <section class="grid-container-editor">
-          <input
-            type="text"
-            class="btn-input-txt"
-            placeholder="start type here"
-          />
-
-          <img
-            src="img/img-icons/up-and-down-opposite-double-arrows-side-by-side.png"
-            alt=""
-            class="btn btn1"
-            onclick="onSwitchLine()"
-            title="Switch focus on line"
-          />
-          <img
-            src="img/img-icons/add.png"
-            alt=""
-            class="btn btn2"
-            onclick="onAddLineTxt()"
-            title="Add line"
-          />
-          <img
-            src="img/img-icons/trash.png"
-            alt=""
-            class="btn btn3"
-            title="Delete line"
-          />
-
-          <img
-            src="img/img-icons/increase font - icon.png"
-            alt=""
-            class="btn btn4"
-            title="Increase font size"
-            onclick="setFontSize(true)"
-          />
-          <img
-            src="img/img-icons/decrease font - icon.png"
-            alt=""
-            class="btn btn5"
-            title="Decrease font size"
-            onclick="setFontSize(false)"
-          />
-          <img
-            src="img/img-icons/align-to-left.png"
-            alt=""
-            class="btn btn6"
-            title="Align text to left"
-            onclick="setAlign('left')"
-          />
-          <img
-            src="img/img-icons/center-text-alignment.png"
-            alt=""
-            class="btn btn7"
-            title="Align text to center"
-            onclick="setAlign('center')"
-          />
-          <img
-            src="img/img-icons/align-to-right.png"
-            alt=""
-            class="btn btn8"
-            title="Align text to right"
-            onclick="setAlign('right')"
-          />
-
-          <select name="font" class="btn-select-font" title="Select font">
-            <option value="font">Font</option>
-          </select>
-          <div class="btn btn9">
-            <img
-              src="img/img-icons/text stroke.png"
-              alt=""
-              class="btn"
-              title="Stroke color"
-            />
+        <section class="editor">
+          <section class="grid-container-editor">
             <input
-              type="color"
-              class="colorBtn"
-              name="strokeColor"
-              onchange="setStrokeColor()"
+              type="text"
+              class="btn-input-txt"
+              placeholder="start type here"
             />
-          </div>
-          <div class="btn btn10">
+
             <img
-              src="img/img-icons/paint-board-and-brush.png"
+              src="img/img-icons/up-and-down-opposite-double-arrows-side-by-side.png"
               alt=""
-              class="btn"
-              title="Text color"
+              class="btn btn1"
+              onclick="onSwitchLine()"
+              title="Switch focus on line"
             />
-            <input
-              type="color"
-              class="colorBtn"
-              name="textColor"
-              onchange="setTextColor()"
+            <img
+              src="img/img-icons/add.png"
+              alt=""
+              class="btn btn2"
+              onclick="onAddLineTxt()"
+              title="Add line"
             />
-          </div>
+            <img
+              src="img/img-icons/trash.png"
+              alt=""
+              class="btn btn3"
+              title="Delete line"
+              onclick="onDeleteLine()"
+            />
+
+            <img
+              src="img/img-icons/increase font - icon.png"
+              alt=""
+              class="btn btn4"
+              title="Increase font size"
+              onclick="setFontSize(true)"
+            />
+            <img
+              src="img/img-icons/decrease font - icon.png"
+              alt=""
+              class="btn btn5"
+              title="Decrease font size"
+              onclick="setFontSize(false)"
+            />
+            <img
+              src="img/img-icons/align-to-left.png"
+              alt=""
+              class="btn btn6"
+              title="Align text to left"
+              onclick="setAlign('left')"
+            />
+            <img
+              src="img/img-icons/center-text-alignment.png"
+              alt=""
+              class="btn btn7"
+              title="Align text to center"
+              onclick="setAlign('center')"
+            />
+            <img
+              src="img/img-icons/align-to-right.png"
+              alt=""
+              class="btn btn8"
+              title="Align text to right"
+              onclick="setAlign('right')"
+            />
+
+            <select
+              name="font"
+              class="btn-select-font"
+              title="Select font"
+              onchange="onSetFont()"
+            >
+              <option value="impact">Impact</option>
+              <option value="monospace">Monospace</option>
+              <option value="system-ui">System-ui</option>
+              <option value="auto">Auto</option>
+            </select>
+            <div class="btn btn9">
+              <img
+                src="img/img-icons/text stroke.png"
+                alt=""
+                class="btn"
+                title="Text outline color"
+              />
+              <input
+                type="color"
+                class="colorBtn"
+                name="outlineColor"
+                onchange="setOutlineColor()"
+              />
+            </div>
+            <div class="btn btn10">
+              <img
+                src="img/img-icons/paint-board-and-brush.png"
+                alt=""
+                class="btn"
+                title="Text color"
+              />
+              <input
+                type="color"
+                value="#FFFFFF"
+                class="colorBtn"
+                name="textColor"
+                onchange="setTextColor()"
+              />
+            </div>
+          </section>
         </section>
       </section>
     </main>

@@ -1,5 +1,6 @@
 "use strict";
 
+var gFirstLine = false
 // add event key up to detect any change in the text input
 const elInputTxt = document.querySelector('.btn-input-txt');
 elInputTxt.addEventListener('keyup', onSetLineTxt);
@@ -7,13 +8,20 @@ elInputTxt.addEventListener('keyup', onSetLineTxt);
 // change gallery to editor 
 function startEditMeme(imgIdx) {
 //   console.log("startEditMeme", imgIdx);
-  initCanvas();
-  document.querySelector(".img-gallery").setAttribute("hidden", "");
-  var elEditorPage = document.querySelector(".meme-editor")
-  elEditorPage.removeAttribute("hidden");
-  elEditorPage.classList.add("flex");
+document.querySelector(".img-gallery").setAttribute("hidden", "");
+document.querySelector(".main-content").removeAttribute("hidden");
+initCanvas();
   createMeme(imgIdx);
   renderMeme();
+}
+
+function toggleFirstLine(){
+    gFirstLine = !gFirstLine;
+    console.log(gFirstLine);
+}
+
+function getFirstLine(){
+    return gFirstLine
 }
 
 // switch focus on line
@@ -28,10 +36,23 @@ function onSetLineTxt() {
     renderMeme();
 }
 
+function onDeleteLine(){
+    deleteTxtBox()
+    deleteLine()
+    renderMeme();
+}
+
+function onSetFont(){
+    var newFont = document.querySelector('.btn-select-font').value
+    console.log(newFont);
+    setFont(newFont);
+    renderMeme();
+}
+
 // add new text box
-function onAddLineTxt(isFirstLine = false) {
+function onAddLineTxt() {
     // if the user start typing without a text box, we dont erase the text
-    if(!isFirstLine){
+    if(!gFirstLine){
         document.querySelector('.btn-input-txt').value = ''
         // console.log('not first line');
     }
@@ -51,9 +72,9 @@ function setFontSize(isIncrease){
 }
 
 // change color
-function setStrokeColor(){
-    const color = document.querySelector('[name=strokeColor]').value;
-    setColor('strokeColor', color)
+function setOutlineColor(){
+    const color = document.querySelector('[name=outlineColor]').value;
+    setColor('outlineColor', color)
     renderMeme()
 }
 
