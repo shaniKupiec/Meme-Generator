@@ -3,13 +3,12 @@
 var gCurrPage = "gallery";
 
 function init() {
-  // console.log('hi');
   createImgs();
   upLoadPage();
   getSavedFromStorge();
 }
 
-function upLoadPage() {
+function upLoadPage() { // what page to render
   if (gCurrPage === "gallery") renderGalleryImgs();
   else if (gCurrPage === "memes") renderGalleryMemes();
   else console.log("about");
@@ -30,7 +29,6 @@ function renderGalleryMemes() {
   console.log("rendering meme gallery");
   var memes = getSavedMemes();
   var imgs = getImgs();
-  // console.log(JSON.stringify(memes[0].memeInfo));
   var str = memes.map((meme, index) => {
     var imgIdx = meme.memeInfo.selectedImgId;
     return `<div class="" onclick="startEditMeme(${imgIdx},${index})" >
@@ -52,6 +50,18 @@ function isMenuOpen() {
   return document.body.classList.length ? true : false;
 }
 
+function toggleEditor(isEditorShown) {
+  if (isEditorShown) {
+    document.querySelector(".img-gallery").setAttribute("hidden", "");
+    document.querySelector(".main-content").removeAttribute("hidden");
+    gCurrPage = "editor";
+  } else {
+    document.querySelector(".img-gallery").removeAttribute("hidden");
+    document.querySelector(".main-content").setAttribute("hidden", "");
+  }
+}
+
+// switch between pages
 function showGallery(ev) {
   if (!isMenuOpen()) ev.stopPropagation();
   if (gCurrPage === "editor") toggleEditor(false);
@@ -74,15 +84,4 @@ function showAbout(ev) {
   // console.log("modal about");
   gCurrPage = "about";
   upLoadPage();
-}
-
-function toggleEditor(isEditorShown) {
-  if (isEditorShown) {
-    document.querySelector(".img-gallery").setAttribute("hidden", "");
-    document.querySelector(".main-content").removeAttribute("hidden");
-    gCurrPage = "editor";
-  } else {
-    document.querySelector(".img-gallery").removeAttribute("hidden");
-    document.querySelector(".main-content").setAttribute("hidden", "");
-  }
 }

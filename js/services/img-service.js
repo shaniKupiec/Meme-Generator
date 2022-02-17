@@ -5,7 +5,7 @@ var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";
 
-function getSavedFromStorge(){
+function getSavedFromStorge(){ // called on Init
     gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
     console.log(gSavedMeme);
     if (!gSavedMeme) gSavedMeme = [];

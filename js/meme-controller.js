@@ -5,18 +5,16 @@ var gFirstLine = false;
 const elInputTxt = document.querySelector(".btn-input-txt");
 elInputTxt.addEventListener("keyup", onSetLineTxt);
 
-// change gallery to editor
 function startEditMeme(imgIdx, readyMemeIdx = -1) {
   // console.log("startEditMeme", imgIdx);
+  // change web sidplay from gallery / meme to editor
   toggleEditor(true);
-  if (readyMemeIdx === -1) {
+  if (readyMemeIdx === -1) { // create new meme
     createMeme(imgIdx);
-    console.log("create new");
-  } else {
+  } else { // use existing meme
     var savedMemes = getSavedMemes();
     var savedMeme = savedMemes[readyMemeIdx].memeInfo;
     setMeme(savedMeme);
-    console.log("set");
   }
   initCanvas();
   renderMeme();
@@ -24,11 +22,7 @@ function startEditMeme(imgIdx, readyMemeIdx = -1) {
 
 function toggleFirstLine() {
   gFirstLine = !gFirstLine;
-  console.log(gFirstLine);
-}
-
-function getFirstLine() {
-  return gFirstLine;
+  // console.log(gFirstLine);
 }
 
 // switch focus on line
@@ -91,6 +85,7 @@ function setTextColor() {
   renderMeme();
 }
 
+// savw download
 function save() {
   var name = prompt("name this meme");
   createSavedMeme(name, getMeme());
@@ -102,4 +97,9 @@ function onDownload(elLink) {
   var canvas = getCanvas()
   elLink.href = canvas.toDataURL('image/png');
   elLink.download = 'my-cool-meme';
+}
+
+// extra func - get and set
+function getFirstLine() {
+  return gFirstLine;
 }
