@@ -99,7 +99,7 @@ function save() {
 
 function onDownload(elLink) {
   // console.log('saved!');
-  downloadCanvas(elLink);
+  var canvas = getCanvas()
+  elLink.href = canvas.toDataURL('image/png');
+  elLink.download = 'my-cool-meme';
 }
-
-function shareToF() {}

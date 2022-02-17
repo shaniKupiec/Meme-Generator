@@ -4,12 +4,7 @@ var gCanvas;
 var gCtx;
 var txtBoxLocations = [];
 var gStartPos;
-const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
-
-function downloadCanvas(elLink) {
-  elLink.href = gCanvas.toDataURL('image/png');
-  elLink.download = 'my-cool-meme';
-}
+const gTouchEvs = ["touchstart", "touchmove", "touchend"];
 
 function initCanvas() {
   gCanvas = document.querySelector("#my-canvas");
@@ -25,35 +20,37 @@ function addTxtBox() {
     return;
   }
   if (lines.length === 2) {
-    txtBoxLocations.push(createTxtBox(25,385));
+    txtBoxLocations.push(createTxtBox(25, 385));
     return;
   }
   // add text box in the middle
 }
 
-function deleteTxtBox(){
-  var currLine = getCurrLineIdx()
+function deleteTxtBox() {
+  var currLine = getCurrLineIdx();
   txtBoxLocations.splice(currLine, 1);
   console.log(txtBoxLocations);
 }
 
-function createTxtBox(x, y){
-    return {
-        x,
-        y,
-        height: 65,
-        width: 400,
-        isDrag:false
-    }
+function createTxtBox(x, y) {
+  return {
+    x,
+    y,
+    height: 65,
+    width: 400,
+    isDrag: false,
+  };
 }
 
-function renderMeme() {
+function renderMeme(forDisplay = false) {
   setImg();
   var meme = getMeme();
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine && !getFirstLine()) document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    if (isCurrLine && !getFirstLine())
+      document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    if(forDisplay) isCurrLine = false
     drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
@@ -76,12 +73,13 @@ function setImg() {
 }
 
 function drawRect(x, y, isCurrLine, width, height) {
-  var color = isCurrLine ? "red" : "black"; //change
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
-  //   gCtx.fillStyle = color;
-  //   gCtx.fillRect(x, y, width, height);
-  gCtx.strokeStyle = color;
+  if (isCurrLine) {
+    gCtx.fillStyle = "rgb(255 255 255 / 37%)";
+    gCtx.fillRect(x, y, width, height);
+  }
+  gCtx.strokeStyle = "black";
   gCtx.stroke();
 }
 
@@ -93,7 +91,6 @@ function resizeCanvas() {
   // console.log('resizeCanvas');
 }
 
-
 // drag and drop
 
 function addListenersMeme() {
@@ -101,7 +98,7 @@ function addListenersMeme() {
   addTouchListeners();
   window.addEventListener("resize", () => {
     resizeCanvas();
-    renderMeme()
+    renderMeme();
   });
 }
 
@@ -119,72 +116,77 @@ function addTouchListeners() {
 
 // check if a txt box was clicked
 function isTxtBoxClicked(clickedPos) {
-    var lineIdx
-    txtBoxLocations.forEach( (txtBox, index) => {
-        if(txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= gCanvas.width){
-            if(txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= gCanvas.height) lineIdx = index
-        }
-    })
-    return lineIdx
+  var lineIdx;
+  txtBoxLocations.forEach((txtBox, index) => {
+    if (txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= gCanvas.width) {
+      if (txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= gCanvas.height)
+        lineIdx = index;
+    }
+  });
+  return lineIdx;
 }
 
 function onDown(ev) {
-    const pos = getEvPos(ev)
-    console.log('onDown()');
-    var currLine = isTxtBoxClicked(pos)
-    if (!currLine) return
-    setSelectedLine(currLine)
-    setBoxDrag(true)
-    gStartPos = pos
-    document.body.style.cursor = 'grabbing'
+  const pos = getEvPos(ev);
+  console.log("onDown()");
+  var currLine = isTxtBoxClicked(pos);
+  if (!currLine) return;
+  setSelectedLine(currLine);
+  setBoxDrag(true);
+  gStartPos = pos;
+  document.body.style.cursor = "grabbing";
 }
 
-function setBoxDrag(isDrag){
-    var idx = getCurrLineIdx()
-    txtBoxLocations[idx].isDrag = isDrag;
+function setBoxDrag(isDrag) {
+  var idx = getCurrLineIdx();
+  txtBoxLocations[idx].isDrag = isDrag;
 }
 
 function onMove(ev) {
-    console.log('onMove()');
-    var idx = getCurrLineIdx()
-    if(idx === -1) return
-    if (txtBoxLocations[idx].isDrag) {
-        const pos = getEvPos(ev)
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
-        moveTxtBox(dx, dy)
-        gStartPos = pos
-        renderMeme()
-    }
+  console.log("onMove()");
+  var idx = getCurrLineIdx();
+  if (idx === -1) return;
+  if (txtBoxLocations[idx].isDrag) {
+    const pos = getEvPos(ev);
+    const dx = pos.x - gStartPos.x;
+    const dy = pos.y - gStartPos.y;
+    moveTxtBox(dx, dy);
+    gStartPos = pos;
+    renderMeme();
+  }
 }
 
-function moveTxtBox(x, y){
+function moveTxtBox(x, y) {
   // drawRect(x, y, true, 'black', 400, 65)
 }
 
 function onUp() {
-    console.log('onUp()');
-    setBoxDrag(false)
-    document.body.style.cursor = 'grab' // normal cursor
+  console.log("onUp()");
+  setBoxDrag(false);
+  document.body.style.cursor = "grab"; // normal cursor
 }
 
 function getEvPos(ev) {
-    var pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
-    }
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-        }
-    }
-    return pos
+  var pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  };
+  if (gTouchEvs.includes(ev.type)) {
+    ev.preventDefault();
+    ev = ev.changedTouches[0];
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+    };
+  }
+  return pos;
 }
 
-
+// removes change of marked line
+function getCanvas() {
+  renderMeme(true)
+  return gCanvas;
+}
 
 // not is use
 function draw(ev) {

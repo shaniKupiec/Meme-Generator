@@ -1,6 +1,7 @@
-function uploadImg() {
-    console.log('hi');
-    const imgDataUrl = gCanvas.toDataURL("image/jpeg");
+function uploadImgToF() {
+    // console.log('hi');
+    var canvas = getCanvas()
+    const imgDataUrl = canvas.toDataURL("image/jpeg");
 
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
@@ -9,10 +10,8 @@ function uploadImg() {
         var facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
         
         console.log('Share your new Meme', facebookLink);
-        // document.querySelector('.share-container').innerHTML = `
-        // <a class="btn" href="${facebookLink}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-        //    Share   
-        // </a>`
+        alert('Share your new Meme');
+        alert(facebookLink);
     }
     
     doUploadImg(imgDataUrl, onSuccess);

@@ -9,3 +9,8 @@ body{
 nav{
     background-color:lightcyan;
 }
+
+a{
+    text-decoration: none;
+    color: black;
+}
