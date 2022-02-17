@@ -15,15 +15,30 @@ function initCanvas() {
 
 function addTxtBox() {
   var lines = getLinesInfo();
+  var w = gCanvas.width;
   if (lines.length === 1) {
-    txtBoxLocations.push(createTxtBox(25, 0));
+    txtBoxLocations.push(createTxtBox(w / 20, w / 20));
     return;
   }
   if (lines.length === 2) {
-    txtBoxLocations.push(createTxtBox(25, 385));
+    txtBoxLocations.push(createTxtBox(w / 20, w - w / 20 - w / 7));
     return;
   }
+  if (lines.length === 3) {
+    txtBoxLocations.push(createTxtBox(w / 20, w / 2 - w / 7 / 2));
+    return;
+  } else {
+    txtBoxLocations.push(createTxtBox(w / 20, getRandomInt(w / 20, w - w / 20 - w / 7)));
+    return;
+  }
+
   // add text box in the middle
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function deleteTxtBox() {
@@ -33,11 +48,12 @@ function deleteTxtBox() {
 }
 
 function createTxtBox(x, y) {
+  var w = gCanvas.width;
   return {
     x,
     y,
-    height: 65,
-    width: 400,
+    height: w / 7,
+    width: w - w / 10,
     isDrag: false,
   };
 }
@@ -50,7 +66,7 @@ function renderMeme(forDisplay = false) {
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
     if (isCurrLine && !getFirstLine())
       document.querySelector(".btn-input-txt").value = txtInfo.txt;
-    if(forDisplay) isCurrLine = false
+    if (forDisplay) isCurrLine = false;
     drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
@@ -58,17 +74,19 @@ function renderMeme(forDisplay = false) {
     gCtx.textAlign = txtInfo.align; // add
     gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
-    gCtx.fillText(txtInfo.txt, txtBox.x + 25, txtBox.y + 40);
-    gCtx.strokeText(txtInfo.txt, txtBox.x + 25, txtBox.y + 40);
+    var txtX = txtBox.x + txtBox.x
+    var txtY = txtBox.y + txtBox.height - txtBox.x
+    gCtx.fillText(txtInfo.txt, txtX, txtY, txtBox.width - txtX);
+    gCtx.strokeText(txtInfo.txt, txtX, txtY, txtBox.width - txtX);
   });
 }
 
 function setImg() {
-  console.log(getMeme());
+  // console.log(getMeme());
   var imgIdx = getMeme().selectedImgId;
-  console.log(imgIdx);
+  // console.log(imgIdx);
   var elImg = document.querySelector(`[data-img="${imgIdx}"]`);
-  console.log(elImg);
+  // console.log(elImg);
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
@@ -184,7 +202,7 @@ function getEvPos(ev) {
 
 // removes change of marked line
 function getCanvas() {
-  renderMeme(true)
+  renderMeme(true);
   return gCanvas;
 }
 

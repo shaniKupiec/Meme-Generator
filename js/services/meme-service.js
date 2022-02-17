@@ -75,14 +75,16 @@ function changeAlign(position) {
 }
 
 function changeFontSize(isIncrease) {
-  var currLine = gMeme.selectedLineIdx;
   if (!gMeme.lines.length) return;
-  gMeme.lines[currLine].size += isIncrease ? 5 : -5;
+  var currLine = gMeme.selectedLineIdx;
+  if(gMeme.lines[currLine].size < 25 || gMeme.lines[currLine].size > 60) return
+  gMeme.lines[currLine].size += isIncrease ? 3 : -3;
+  // console.log( gMeme.lines[currLine].size);
 }
 
 function addLine() {
   gMeme.lines.push(ceateLine());
-  console.log(gMeme);
+  // console.log(gMeme);
   gMeme.selectedLineIdx++;
 }
 

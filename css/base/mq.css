@@ -103,6 +103,15 @@
     width: 450px;
     height: 450px;
   }
+
+  .icon {
+    width: 30px;
+  }
+
+  .txt {
+    font-size:medium;
+  }
+  
 }
 
 /* LARGE */
@@ -117,4 +126,13 @@
     width: 600px;
     height: 600px;
   }
+
+  .icon {
+    width: 50px !important;
+  }
+
+  .txt {
+    font-size:large;
+  }
+  
 }
