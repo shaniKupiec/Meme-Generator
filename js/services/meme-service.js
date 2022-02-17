@@ -10,6 +10,7 @@ function createMeme(imgIdx) {
     selectedImgId: imgIdx,
     selectedLineIdx: -1,
     lines: [],
+    createdAt: Date.now()
   };
   //   console.log('createMeme');
 }
@@ -110,4 +111,8 @@ function getCurrLineIdx(){
 
 function setSelectedLine(lineIdx) {
   gMeme.selectedImgId = lineIdx;
+}
+
+function setMeme(meme){
+  gMeme = meme
 }

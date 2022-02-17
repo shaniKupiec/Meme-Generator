@@ -6,6 +6,11 @@ var txtBoxLocations = [];
 var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
+function downloadCanvas(elLink) {
+  elLink.href = gCanvas.toDataURL('image/png');
+  elLink.download = 'my-cool-meme';
+}
+
 function initCanvas() {
   gCanvas = document.querySelector("#my-canvas");
   gCtx = gCanvas.getContext("2d");
@@ -62,8 +67,11 @@ function renderMeme() {
 }
 
 function setImg() {
+  console.log(getMeme());
   var imgIdx = getMeme().selectedImgId;
+  console.log(imgIdx);
   var elImg = document.querySelector(`[data-img="${imgIdx}"]`);
+  console.log(elImg);
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 

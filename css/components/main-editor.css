@@ -16,8 +16,8 @@ canvas {
     ".         swichLine    addLine     removeLine    ."
     "biggerF   smallerF     a-left      a-center      a-right"
     "font      font         font        strock        color"
-    ".         .           .           .             ."
-    ".         .            .           .             .";
+    ".         .            .           .             ."
+    "save      share        share       download      download";
   /* "emoji     emoji        emoji       emoji         emoji"
           ".         .            .           share         download"; */
   height: 94%;
@@ -34,7 +34,7 @@ canvas {
   width: 29px;
 }
 
-.btn {
+.icon {
   width: 30px;
 }
 
@@ -84,4 +84,16 @@ canvas {
 
 .btn10 {
   grid-area: color;
+}
+
+.btn11 {
+  grid-area: save;
+}
+
+.btn12 {
+  grid-area: share;
+}
+
+.btn13 {
+  grid-area: download;
 }
