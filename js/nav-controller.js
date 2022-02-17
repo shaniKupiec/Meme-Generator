@@ -1,5 +1,11 @@
 "use strict";
 
+function toggleMenu(){
+  document.body.classList.toggle('menu-open')
+  document.querySelector('.second-nav').classList.toggle('flex')
+  console.log('toggle menu');
+}
+
 function showGallery() {
   console.log("gallery");
 }

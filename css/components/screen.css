@@ -1,0 +1,4 @@
+body.menu-open .menu-container {
+    pointer-events: auto;
+    opacity: 1;
+}

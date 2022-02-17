@@ -17,11 +17,16 @@
     <nav>
       <div class="main-nav flex space-between align-center main-layout">
         <span class="logo" title="this is our logo">logo</span>
-        <ul class="clean-list flex">
-          <li class="gallery nav-btn" onclick="showGallery()">Gallery</li>
-          <li class="memes nav-btn" onclick="showMemes()">Memes</li>
-          <li class="about nav-btn" onclick="showAbout()">About</li>
-        </ul>
+        <span>
+          <div class="menu-container" onclick="toggleMenu()">
+            <ul class="second-nav clean-list">
+              <li class="gallery nav-btn" onclick="showGallery()">Gallery</li>
+              <li class="memes nav-btn" onclick="showMemes()">Memes</li>
+              <li class="about nav-btn" onclick="showAbout()">About</li>
+            </ul>
+          </div>
+          <button class="btn-menu" onclick="toggleMenu()">☰</button>
+        </span>
       </div>
     </nav>
 
@@ -34,7 +39,7 @@
 
     <main class="main-content" hidden>
       <section class="meme-editor main-layout flex">
-        <section class="canvas-container" height="450px" width="450px">
+        <section class="canvas-container">
           <canvas id="my-canvas" height="450px" width="450px">
             Your browser does not support the canvas element.
           </canvas>

@@ -7,6 +7,6 @@
 
 .grid-container-gall > * {
   border: 1px solid black;
-  text-align: center;
+  justify-self: center;
   height: 150px;
 }

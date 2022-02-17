@@ -1,7 +1,7 @@
 /* flex */
 
 .flex{
-    display: flex;
+    display: flex !important;
 }
 
 .flex.space-between {
