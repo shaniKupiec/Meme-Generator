@@ -66,22 +66,28 @@ function showGallery(ev) {
   if (!isMenuOpen()) ev.stopPropagation();
   if (gCurrPage === "editor") toggleEditor(false);
   console.log("gallery");
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
   gCurrPage = "gallery";
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
   upLoadPage();
 }
 
 function showMemes(ev) {
   if (!isMenuOpen()) ev.stopPropagation();
   if (gCurrPage === "editor") toggleEditor(false);
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
   console.log("showMemes");
   gCurrPage = "memes";
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
   upLoadPage();
 }
 
 function showAbout(ev) {
   if (!isMenuOpen()) ev.stopPropagation();
   if (gCurrPage === "editor") toggleEditor(false);
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
   // console.log("modal about");
   gCurrPage = "about";
+  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
   upLoadPage();
 }

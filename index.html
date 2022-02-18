@@ -17,11 +17,13 @@
     <nav>
       <div class="main-nav flex space-between align-center main-layout">
         <!-- <span class="logo" title="this is our logo">logo</span> -->
-        <img src="img/LOGO.png" class="logo" title="this is our logo">
+        <img src="img/LOGO.png" class="logo" title="this is our logo" />
         <span>
           <div class="menu-container" onclick="toggleMenu()">
             <ul class="second-nav clean-list align-center">
-              <li class="gallery nav-btn" onclick="showGallery(event)">Gallery</li>
+              <li class="gallery nav-btn" onclick="showGallery(event)">
+                Gallery
+              </li>
               <li class="memes nav-btn" onclick="showMemes(event)">Memes</li>
               <li class="about nav-btn" onclick="showAbout(event)">About</li>
             </ul>
@@ -33,7 +35,17 @@
 
     <main class="img-gallery main-layout">
       <section class="search-nav">
-        search nav : Lorem ipsum dolor sit amet.
+        <!-- search nav : Lorem ipsum dolor sit amet. -->
+        <input list="keywords" id="search" name="search" placeholder="Search"/>
+        <datalist id="search">
+          <option value="Funny"></option>
+          <option value="Movie"></option>
+          <option value="Politic"></option>
+          <option value="Animel"></option>
+          <option value="Baby"></option>
+          <option value="Sport"></option>
+        </datalist>
+
         <button onclick="randomMeme()">I'm Flexible</button>
       </section>
       <section class="grid-container-gall"></section>
@@ -154,18 +166,20 @@
               />
             </div>
 
-            <button class="txt btn11" onclick="save()">Save<br>
-              <img class="mini-icon" src="img/img-icons/diskette.png">
+            <button class="txt btn11" onclick="save()">
+              Save<br />
+              <img class="mini-icon" src="img/img-icons/diskette.png" />
             </button>
-            <button class="txt btn12" onclick="uploadImgToF()">Share <br>
-              <img class="mini-icon" src="img/img-icons/share.png">
+            <button class="txt btn12" onclick="uploadImgToF()">
+              Share <br />
+              <img class="mini-icon" src="img/img-icons/share.png" />
             </button>
             <button class="txt btn13">
-              <a href="#" class="" onclick="onDownload(this)" download="">Download<br>
-                <img class="mini-icon" src="img/img-icons/download.png">
+              <a href="#" class="" onclick="onDownload(this)" download=""
+                >Download<br />
+                <img class="mini-icon" src="img/img-icons/download.png" />
               </a>
             </button>
-
           </section>
         </section>
       </section>

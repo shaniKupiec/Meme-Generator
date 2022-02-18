@@ -6,9 +6,6 @@ const elInputTxt = document.querySelector(".btn-input-txt");
 elInputTxt.addEventListener("keyup", onSetLineTxt);
 
 function startEditMeme(imgIdx, readyMemeIdx = -1) {
-  // console.log("startEditMeme", imgIdx);
-  // change web sidplay from gallery / meme to editor
-  console.log('readyMemeIdx',readyMemeIdx);
   toggleEditor(true);
   if (readyMemeIdx === -1) { // create new meme
     createMeme(imgIdx);
@@ -36,7 +33,6 @@ function randomMeme(){
 
 function toggleFirstLine() {
   gFirstLine = !gFirstLine;
-  // console.log(gFirstLine);
 }
 
 // switch focus on line
@@ -59,7 +55,6 @@ function onDeleteLine() {
 
 function onSetFont() {
   var newFont = document.querySelector(".btn-select-font").value;
-  console.log(newFont);
   setFont(newFont);
   renderMeme();
 }
@@ -69,7 +64,6 @@ function onAddLineTxt() {
   // if the user start typing without a text box, we dont erase the text
   if (!gFirstLine) {
     document.querySelector(".btn-input-txt").value = "";
-    // console.log('not first line');
   }
   addLine();
   addTxtBox();
@@ -107,7 +101,6 @@ function save() {
 }
 
 function onDownload(elLink) {
-  // console.log('saved!');
   var canvas = getCanvas()
   elLink.href = canvas.toDataURL('image/png');
   elLink.download = 'my-cool-meme';
@@ -116,4 +109,20 @@ function onDownload(elLink) {
 // extra func - get and set
 function getFirstLine() {
   return gFirstLine;
+}
+
+function setInputVal(newVal){
+  document.querySelector(".btn-input-txt").value = newVal
+}
+
+function getElImg(imgIdx){
+  return document.querySelector(`[data-img="${imgIdx}"]`);
+}
+
+function getElContainer(){
+  return document.querySelector(".canvas-container");
+}
+
+function setCursor(newVal){
+  document.querySelector("body").style.cursor = newVal
 }

@@ -28,7 +28,8 @@ function addTxtBox() {
   if (lines.length === 3) {
     txtBoxLocations.push(createTxtBox(w / 20, w / 2 - w / 7 / 2));
     return;
-  } else { // random from the 4th txt box
+  } else {
+    // random from the 4th txt box
     txtBoxLocations.push(
       createTxtBox(w / 20, getRandomInt(w / 20, w - w / 20 - w / 7))
     );
@@ -36,18 +37,17 @@ function addTxtBox() {
   }
 }
 
-function getTxtBoxes(){
-  return txtBoxLocations
+function getTxtBoxes() {
+  return txtBoxLocations;
 }
 
-function setTxtBoxes(txtBoxes){
-  txtBoxLocations = txtBoxes
+function setTxtBoxes(txtBoxes) {
+  txtBoxLocations = txtBoxes;
 }
 
 function deleteTxtBox() {
   var currLine = getCurrLineIdx();
   txtBoxLocations.splice(currLine, 1);
-  console.log(txtBoxLocations);
 }
 
 function createTxtBox(x, y) {
@@ -68,7 +68,8 @@ function renderMeme(forDisplay = false) {
     var txtInfo = meme.lines[index];
     // check selected line and if it's not the first line - change the inputs value to the existing text
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine && !getFirstLine()) document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    if (isCurrLine && !getFirstLine())
+    setInputVal(txtInfo.txt);
     // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
     // draw rectangle
@@ -78,14 +79,14 @@ function renderMeme(forDisplay = false) {
     gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
     // set align
-    var gap =  gCanvas.width / 20
+    var gap = gCanvas.width / 20;
     gCtx.textAlign = txtInfo.align;
     var txtX;
-    if(txtInfo.align === 'left') txtX =  txtBox.x + gap
-    else if(txtInfo.align === 'right') txtX =  txtBox.x + txtBox.width - gap
-    else txtX =  txtBox.x + txtBox.width / 2
+    if (txtInfo.align === "left") txtX = txtBox.x + gap;
+    else if (txtInfo.align === "right") txtX = txtBox.x + txtBox.width - gap;
+    else txtX = txtBox.x + txtBox.width / 2;
     var txtY = txtBox.y + txtBox.height - gap;
-    var maxWidth = txtBox.width - gap * 2
+    var maxWidth = txtBox.width - gap * 2;
     // draw font
     gCtx.fillText(txtInfo.txt, txtX, txtY, maxWidth);
     gCtx.strokeText(txtInfo.txt, txtX, txtY, maxWidth);
@@ -93,16 +94,17 @@ function renderMeme(forDisplay = false) {
 }
 
 function setImg() {
-  var meme = getMeme()
+  var meme = getMeme();
   var imgIdx = meme.selectedImgId;
-  var elImg = document.querySelector(`[data-img="${imgIdx}"]`);
+  var elImg = getElImg(imgIdx);
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
 function drawRect(x, y, isCurrLine, width, height) {
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
-  if (isCurrLine) { // if its on focus make the bgc transparent white
+  if (isCurrLine) {
+    // if its on focus make the bgc transparent white
     gCtx.fillStyle = "rgb(255 255 255 / 37%)";
     gCtx.fillRect(x, y, width, height);
   }
@@ -111,9 +113,9 @@ function drawRect(x, y, isCurrLine, width, height) {
 }
 
 function resizeCanvas() {
-  var elContainer = document.querySelector(".canvas-container");
+  var elContainer = getElContainer()
   gCanvas.width = elContainer.offsetWidth;
-  gCanvas.height = elContainer.offsetWidth;// for not squre imgs
+  gCanvas.height = elContainer.offsetWidth; // for not squre imgs
 }
 
 // drag and drop
@@ -127,14 +129,14 @@ function addListenersMeme() {
 }
 
 function addMouseListeners() {
-  gCanvas.addEventListener("mousemove", onMove);
   gCanvas.addEventListener("mousedown", onDown);
+  gCanvas.addEventListener("mousemove", onMove);
   gCanvas.addEventListener("mouseup", onUp);
 }
 
 function addTouchListeners() {
-  gCanvas.addEventListener("touchmove", onMove);
   gCanvas.addEventListener("touchstart", onDown);
+  gCanvas.addEventListener("touchmove", onMove);
   gCanvas.addEventListener("touchend", onUp);
 }
 
@@ -157,16 +159,17 @@ function onDown(ev) {
   console.log(currLine);
   if (currLine === undefined) return;
 
+  setCursor("grabbing");
   setSelectedLine(currLine);
+
   setBoxDrag(true);
   gStartPos = pos;
-  // gStartPos.offsetX = ev.x - pos.x
-  // gStartPos.offsetY = ev.y - pos.y
   gStartPos.offset = {
     x: ev.x - pos.x,
-    y: ev.y - pos.y
-  }
+    y: ev.y - pos.y,
+  };
   // document.body.style.cursor = "grabbing";
+  renderMeme();
 }
 
 function setBoxDrag(isDragBool) {
@@ -177,29 +180,25 @@ function setBoxDrag(isDragBool) {
 function onMove(ev) {
   console.log("onMove()");
   var idx = getCurrLineIdx();
-  if (!gStartPos) return;
-  if (txtBoxLocations[idx].isDrag) {
-    document.body.style.cursor = "grabbing";
-    const pos = getEvPos(ev);
-    // pos.x = ev.x - pos.offset.x
-    // pos.y = ev.y - pos.offset.y
-    txtBoxLocations[idx].x = pos.x - gStartPos.x;
-    txtBoxLocations[idx].y = pos.y - gStartPos.y;
-    // txtBoxLocations[idx].x = pos.x;
-    // txtBoxLocations[idx].y = pos.y;
-    // txtBoxLocations[idx].x
-    // txtBoxLocations[idx].y
-    gStartPos = pos;
-    renderMeme();
-  }
+  if (!gStartPos || !txtBoxLocations[idx].isDrag) return;
+  setCursor("grabbing")
+  // document.body.style.cursor = "grabbing";
+  const pos = getEvPos(ev);
+  // console.log(pos);
+  txtBoxLocations[idx].x += pos.x - gStartPos.x;
+  txtBoxLocations[idx].y += pos.y - gStartPos.y;
+  gStartPos = pos;
+  renderMeme();
 }
 
 function onUp() {
   if (gStartPos === null) return;
   console.log("onUp()");
   setBoxDrag(false);
-  document.body.style.cursor = "auto"; // normal cursor
   gStartPos = null;
+  setCursor("auto")
+
+  // document.body.style.cursor = "auto"; // normal cursor
 }
 
 function getEvPos(ev) {
@@ -207,14 +206,14 @@ function getEvPos(ev) {
     x: ev.offsetX,
     y: ev.offsetY,
   };
-  if (gTouchEvs.includes(ev.type)) {
-    ev.preventDefault();
-    ev = ev.changedTouches[0];
-    pos = {
-      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-    };
-  }
+  // if (gTouchEvs.includes(ev.type)) {
+  //   ev.preventDefault();
+  //   ev = ev.changedTouches[0];
+  //   pos = {
+  //     x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+  //     y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+  //   };
+  // }
   return pos;
 }
 

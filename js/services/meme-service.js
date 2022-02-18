@@ -29,7 +29,6 @@ function createMeme(imgIdx) {
     lines: [],
     createdAt: getDateInFormat(),
   };
-  //   console.log('createMeme');
 }
 
 function getDateInFormat(){
@@ -43,19 +42,15 @@ function switchLine() {
     gMeme.selectedLineIdx === gMeme.lines.length - 1
       ? 0
       : gMeme.selectedLineIdx + 1;
-  //   console.log(gMeme.selectedLineIdx);
 }
 
 function deleteLine() {
   var currLine = gMeme.selectedLineIdx;
-  console.log("gMeme.selectedLineIdx ", gMeme.selectedLineIdx);
   gMeme.lines.splice(currLine, 1);
-  console.log(gMeme);
   if (!gMeme.lines.length) { // if the uer delete the last line
     gMeme.selectedLineIdx = -1;
     document.querySelector(".btn-input-txt").value = "";
   } else gMeme.selectedLineIdx = 0;
-  console.log("gMeme.selectedLineIdx ", gMeme.selectedLineIdx);
 }
 
 function changeTxtMeme() {
@@ -65,7 +60,6 @@ function changeTxtMeme() {
     toggleFirstLine();
     onAddLineTxt();
     currLine++;
-    // console.log('firstLine');
   }
   // at each change of key we copy the wholl value of the input
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
@@ -99,12 +93,10 @@ function changeFontSize(isIncrease) {
   var currLine = gMeme.selectedLineIdx;
   if (gMeme.lines[currLine].size < 25 || gMeme.lines[currLine].size > 60) return;
   gMeme.lines[currLine].size += isIncrease ? 3 : -3;
-  // console.log( gMeme.lines[currLine].size);
 }
 
 function addLine() {
   gMeme.lines.push(ceateLine());
-  // console.log(gMeme);
   gMeme.selectedLineIdx++;
 }
 
