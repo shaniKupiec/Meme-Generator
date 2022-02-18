@@ -4,14 +4,15 @@ var gCurrPage = "gallery";
 
 function init() {
   createImgs();
-  upLoadPage();
+  switchPage(null, gCurrPage)
   getSavedFromStorge();
 }
 
 function upLoadPage() { // what page to render
   if (gCurrPage === "gallery") renderGalleryImgs();
   else if (gCurrPage === "memes") renderGalleryMemes();
-  else console.log("about");
+  else if (gCurrPage === "about") console.log("about")
+  else console.log("editor");
 }
 
 function renderGalleryImgs() {
@@ -54,7 +55,8 @@ function toggleEditor(isEditorShown) {
   if (isEditorShown) {
     document.querySelector(".img-gallery").setAttribute("hidden", "");
     document.querySelector(".main-content").removeAttribute("hidden");
-    gCurrPage = "editor";
+    // gCurrPage = "editor";
+    switchPage(null, "editor")
   } else {
     document.querySelector(".img-gallery").removeAttribute("hidden");
     document.querySelector(".main-content").setAttribute("hidden", "");
@@ -62,32 +64,17 @@ function toggleEditor(isEditorShown) {
 }
 
 // switch between pages
-function showGallery(ev) {
-  if (!isMenuOpen()) ev.stopPropagation();
-  if (gCurrPage === "editor") toggleEditor(false);
-  console.log("gallery");
+function switchPage(ev, pageName){
+  if(ev) {
+    if (!isMenuOpen()) ev.stopPropagation();
+  }
   document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
-  gCurrPage = "gallery";
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
-  upLoadPage();
-}
 
-function showMemes(ev) {
-  if (!isMenuOpen()) ev.stopPropagation();
-  if (gCurrPage === "editor") toggleEditor(false);
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
-  console.log("showMemes");
-  gCurrPage = "memes";
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
-  upLoadPage();
-}
+  if(pageName !== 'editor'){
+    if(gCurrPage === 'editor') toggleEditor(false)
+    gCurrPage = pageName;
+    document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
+  } else gCurrPage = pageName;
 
-function showAbout(ev) {
-  if (!isMenuOpen()) ev.stopPropagation();
-  if (gCurrPage === "editor") toggleEditor(false);
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
-  // console.log("modal about");
-  gCurrPage = "about";
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
   upLoadPage();
 }

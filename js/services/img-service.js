@@ -7,9 +7,9 @@ const SAVED_MEME_KEY = "savedMemeData";
 
 function getSavedFromStorge(){ // called on Init
     gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
-    console.log('loadFromStorage(SAVED_MEME_KEY)' , gSavedMeme);
+    // console.log('loadFromStorage(SAVED_MEME_KEY)' , gSavedMeme);
     if (!gSavedMeme) gSavedMeme = [];
-    console.log('gSavedMeme' , gSavedMeme);
+    // console.log('gSavedMeme' , gSavedMeme);
 }
 
 function getSavedMemes() {

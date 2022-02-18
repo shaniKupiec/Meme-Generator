@@ -21,11 +21,11 @@
         <span>
           <div class="menu-container" onclick="toggleMenu()">
             <ul class="second-nav clean-list align-center">
-              <li class="gallery nav-btn" onclick="showGallery(event)">
+              <li class="gallery nav-btn" onclick="switchPage(event, 'gallery')">
                 Gallery
               </li>
-              <li class="memes nav-btn" onclick="showMemes(event)">Memes</li>
-              <li class="about nav-btn" onclick="showAbout(event)">About</li>
+              <li class="memes nav-btn" onclick="switchPage(event, 'memes')">Memes</li>
+              <li class="about nav-btn" onclick="switchPage(event, 'about')">About</li>
             </ul>
           </div>
           <button class="btn-menu" onclick="toggleMenu()">☰</button>
