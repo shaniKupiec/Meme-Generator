@@ -4,15 +4,37 @@ var gMeme;
 var gOutlineColor = "black";
 var gTextColor = "white";
 var gFont = "Impact";
+const memesSentences = [
+  'I never eat falafel',
+  'DOMS DOMS EVERYWHERE',
+  'Stop Using i in for loops',
+  'Armed in knowledge',
+  'Js error "Unexpected String"',
+  'One does not simply write js',
+  'I`m a simple man i see vanilla JS, i click like!',
+  'JS, HTML,CSS?? Even my momma can do that',
+  'May the force be with you',
+  'I know JS',
+  'JS Where everything is made up and the rules dont matter',
+  'Not sure if im good at programming or good at googling',
+  'But if we could',
+  'JS what is this?',
+  'Write hello world , add to cv 7 years experienced',
+];
 
 function createMeme(imgIdx) {
   gMeme = {
     selectedImgId: imgIdx,
     selectedLineIdx: -1,
     lines: [],
-    createdAt: Date.now(),
+    createdAt: getDateInFormat(),
   };
   //   console.log('createMeme');
+}
+
+function getDateInFormat(){
+  let date = new Date();
+  return date.toLocaleString('en-US')
 }
 
 // change focus on line
@@ -116,4 +138,9 @@ function setSelectedLine(lineIdx) {
 
 function setMeme(meme) {
   gMeme = meme;
+}
+
+function setRandLineTxt(){
+  var currLine = gMeme.selectedLineIdx;
+  gMeme.lines[currLine].txt = memesSentences[getRandomInt(0, 15)]
 }

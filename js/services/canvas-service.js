@@ -44,13 +44,6 @@ function setTxtBoxes(txtBoxes){
   txtBoxLocations = txtBoxes
 }
 
-// move to util
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
 function deleteTxtBox() {
   var currLine = getCurrLineIdx();
   txtBoxLocations.splice(currLine, 1);
@@ -62,8 +55,8 @@ function createTxtBox(x, y) {
   return {
     x,
     y,
-    height: w / 7,
-    width: w - w / 10,
+    height: w / 7, //14.5%
+    width: w - w / 10, // 90%
     isDrag: false,
   };
 }
@@ -73,22 +66,29 @@ function renderMeme(forDisplay = false) {
   var meme = getMeme();
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
+    // check selected line and if it's not the first line - change the inputs value to the existing text
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine && !getFirstLine())
-      document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    if (isCurrLine && !getFirstLine()) document.querySelector(".btn-input-txt").value = txtInfo.txt;
+    // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
+    // draw rectangle
     drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
-    // console.log('index', index);
-    // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
+    // set font style
     gCtx.strokeStyle = txtInfo.outlineColor;
-    console.log('txtInfo.outlineColor',txtInfo.outlineColor);
-    gCtx.textAlign = txtInfo.align; // change aline!
     gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
-    var txtX = txtBox.x + txtBox.x;
-    var txtY = txtBox.y + txtBox.height - txtBox.x;
-    gCtx.fillText(txtInfo.txt, txtX, txtY, txtBox.width - txtX);
-    gCtx.strokeText(txtInfo.txt, txtX, txtY, txtBox.width - txtX);
+    // set align
+    var gap =  gCanvas.width / 20
+    gCtx.textAlign = txtInfo.align;
+    var txtX;
+    if(txtInfo.align === 'left') txtX =  txtBox.x + gap
+    else if(txtInfo.align === 'right') txtX =  txtBox.x + txtBox.width - gap
+    else txtX =  txtBox.x + txtBox.width / 2
+    var txtY = txtBox.y + txtBox.height - gap;
+    var maxWidth = txtBox.width - gap * 2
+    // draw font
+    gCtx.fillText(txtInfo.txt, txtX, txtY, maxWidth);
+    gCtx.strokeText(txtInfo.txt, txtX, txtY, maxWidth);
   });
 }
 

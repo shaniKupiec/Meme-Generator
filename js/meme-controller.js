@@ -25,6 +25,15 @@ function startEditMeme(imgIdx, readyMemeIdx = -1) {
   renderMeme();
 }
 
+// i'm flexible
+function randomMeme(){
+  startEditMeme(getRandomInt(0, 17))
+  addLine()
+  addTxtBox();
+  setRandLineTxt()
+  renderMeme();
+}
+
 function toggleFirstLine() {
   gFirstLine = !gFirstLine;
   // console.log(gFirstLine);

@@ -38,6 +38,10 @@ canvas {
   width: 30px;
 }
 
+.mini-icon{
+  width: 20px;
+}
+
 .btn-input-txt {
   grid-area: input;
 }
