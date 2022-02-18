@@ -8,13 +8,18 @@ elInputTxt.addEventListener("keyup", onSetLineTxt);
 function startEditMeme(imgIdx, readyMemeIdx = -1) {
   // console.log("startEditMeme", imgIdx);
   // change web sidplay from gallery / meme to editor
+  console.log('readyMemeIdx',readyMemeIdx);
   toggleEditor(true);
   if (readyMemeIdx === -1) { // create new meme
     createMeme(imgIdx);
+    setTxtBoxes([]);
+    document.querySelector(".btn-input-txt").value = "";
+    console.log('createMeme');
   } else { // use existing meme
     var savedMemes = getSavedMemes();
-    var savedMeme = savedMemes[readyMemeIdx].memeInfo;
-    setMeme(savedMeme);
+    setMeme(savedMemes[readyMemeIdx].memeInfo);
+    setTxtBoxes(savedMemes[readyMemeIdx].txtBoxesInfo)
+    console.log('setMeme');
   }
   initCanvas();
   renderMeme();
@@ -85,10 +90,10 @@ function setTextColor() {
   renderMeme();
 }
 
-// savw download
+// save download
 function save() {
   var name = prompt("name this meme");
-  createSavedMeme(name, getMeme());
+  createSavedMeme(name, getMeme(), getTxtBoxes());
   alert("saved! you can see it on memes");
 }
 

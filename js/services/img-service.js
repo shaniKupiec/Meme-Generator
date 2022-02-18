@@ -7,21 +7,23 @@ const SAVED_MEME_KEY = "savedMemeData";
 
 function getSavedFromStorge(){ // called on Init
     gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
-    console.log(gSavedMeme);
+    console.log('loadFromStorage(SAVED_MEME_KEY)' , gSavedMeme);
     if (!gSavedMeme) gSavedMeme = [];
-    console.log(gSavedMeme);
+    console.log('gSavedMeme' , gSavedMeme);
 }
 
 function getSavedMemes() {
   return gSavedMeme;
 }
 
-function createSavedMeme(name, meme) {
+function createSavedMeme(fileName, memeInfo, txtBoxesInfo) {
   var savedMeme = {
-    fileName: name,
-    memeInfo: meme,
+    fileName,
+    memeInfo,
+    txtBoxesInfo
   };
   gSavedMeme.push(savedMeme);
+  console.log('gSavedMeme',gSavedMeme);
   saveToStorage(SAVED_MEME_KEY, gSavedMeme);
 }
 
@@ -31,6 +33,7 @@ function getImgs() {
 
 function createImgs() {
   gImgs = [];
+  gImgs.push(createImg(0, ["funny", "cat"]));
   gImgs.push(createImg(1, ["funny", "cat"]));
   gImgs.push(createImg(2, ["funny", "cat"]));
   gImgs.push(createImg(3, ["funny", "cat"]));
@@ -48,7 +51,6 @@ function createImgs() {
   gImgs.push(createImg(15, ["funny", "cat"]));
   gImgs.push(createImg(16, ["funny", "cat"]));
   gImgs.push(createImg(17, ["funny", "cat"]));
-  gImgs.push(createImg(18, ["funny", "cat"]));
 }
 
 function createImg(imgIdx, keywords) {

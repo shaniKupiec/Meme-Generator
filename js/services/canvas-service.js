@@ -3,7 +3,7 @@
 var gCanvas;
 var gCtx;
 var txtBoxLocations = [];
-var gStartPos;
+var gStartPos = null;
 const gTouchEvs = ["touchstart", "touchmove", "touchend"];
 
 function initCanvas() {
@@ -34,6 +34,14 @@ function addTxtBox() {
     );
     return;
   }
+}
+
+function getTxtBoxes(){
+  return txtBoxLocations
+}
+
+function setTxtBoxes(txtBoxes){
+  txtBoxLocations = txtBoxes
 }
 
 // move to util
@@ -73,6 +81,7 @@ function renderMeme(forDisplay = false) {
     // console.log('index', index);
     // console.log('meme.selectedLineIdx', meme.selectedLineIdx);
     gCtx.strokeStyle = txtInfo.outlineColor;
+    console.log('txtInfo.outlineColor',txtInfo.outlineColor);
     gCtx.textAlign = txtInfo.align; // change aline!
     gCtx.fillStyle = txtInfo.fontColor;
     gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
@@ -146,7 +155,7 @@ function onDown(ev) {
   console.log("onDown()");
   var currLine = isTxtBoxClicked(pos);
   console.log(currLine);
-  if (currLine === null) return;
+  if (currLine === undefined) return;
 
   setSelectedLine(currLine);
   setBoxDrag(true);
@@ -186,6 +195,7 @@ function onMove(ev) {
 }
 
 function onUp() {
+  if (gStartPos === null) return;
   console.log("onUp()");
   setBoxDrag(false);
   document.body.style.cursor = "auto"; // normal cursor

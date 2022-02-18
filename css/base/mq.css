@@ -37,6 +37,11 @@
     display: none;
     flex-direction: column;
   }
+
+  .main-nav .logo{
+    max-width: 150px;
+    width: 50%;
+  }
   
   .canvas-container {
     width: 80%;
@@ -59,6 +64,11 @@
 
   .btn-menu {
     display: none;
+  }
+
+  .main-nav .logo{
+    max-width: 150px;
+    width: 100%;
   }
 
   .nav-btn {
@@ -99,6 +109,14 @@
     /* background-color: #d3d3d340; */
   }
 
+  .nav-btn {
+    font-size: large;
+  }
+
+  .main-nav .logo{
+    max-width: 200px;
+  }
+
   .canvas-container {
     width: 450px;
     height: 450px;
@@ -120,6 +138,10 @@
   .main-layout {
     width: 900px;
     /* background-color: #52f80440; */
+  }
+
+  .nav-btn {
+    font-size: larger;
   }
 
   .canvas-container {

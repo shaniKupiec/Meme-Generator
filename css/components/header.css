@@ -3,12 +3,7 @@
 }
 
 .main-nav:first-child{
-    height: fit-content;
     padding: 10px;
-}
-
-.main-nav:first-child{
-    text-transform: uppercase;
 }
 
 .nav-btn{

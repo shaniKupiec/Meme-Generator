@@ -18,25 +18,25 @@ function renderGalleryImgs() {
   var imgs = getImgs();
   var str = imgs.map(
     (img, index) =>
-      `<img data-img="${index + 1}" onclick="startEditMeme(${
-        index + 1
+      `<img data-img="${index}" onclick="startEditMeme(${
+        index
       })" src="${img.url}" alt=""></img>`
   );
   document.querySelector(".grid-container-gall").innerHTML = str.join("");
 }
 
 function renderGalleryMemes() {
-  console.log("rendering meme gallery");
+  console.log("renderGalleryMemes rendering meme gallery");
   var memes = getSavedMemes();
   var imgs = getImgs();
   var str = memes.map((meme, index) => {
     var imgIdx = meme.memeInfo.selectedImgId;
     return `<div class="" onclick="startEditMeme(${imgIdx},${index})" >
     ${meme.fileName}, created at : ${meme.memeInfo.createdAt}
-    <img data-img="${imgIdx}" class="small-img" onclick="startEditMeme(${imgIdx})" src="${imgs[imgIdx].url}" alt="">
+    <img data-img="${imgIdx}" class="small-img" src="${imgs[imgIdx].url}" alt="">
     </img> </div> `;
   });
-  console.log(str);
+  console.log('renderGalleryMemes str to render', str);
   document.querySelector(".grid-container-gall").innerHTML = str.join("");
 }
 
@@ -73,7 +73,7 @@ function showGallery(ev) {
 function showMemes(ev) {
   if (!isMenuOpen()) ev.stopPropagation();
   if (gCurrPage === "editor") toggleEditor(false);
-  console.log("memes");
+  console.log("showMemes");
   gCurrPage = "memes";
   upLoadPage();
 }
