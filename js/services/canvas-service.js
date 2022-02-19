@@ -15,15 +15,18 @@ function initCanvas() {
 }
 
 // add txt box according to number of line
-function addTxtBox(isEmoji = false) {
+function addTxtBox(isEmoji = false, emojiInfo = false) {
   var w = gCanvas.width;
   if (isEmoji) {
-    gTxtBoxLocations.push(createTxtBox(w / 2, w / 2));
+    // add unique sizw to emoji txt box
+    var txtBox = createTxtBox(w / 2, w / 2);
+    txtBox.height = emojiInfo.size;
+    txtBox.width = emojiInfo.size;
+    gTxtBoxLocations.push(txtBox);
     return;
   }
   var lines = getLinesInfo();
   var txtLines = lines.filter((line) => !line.isEmoji);
-  console.log(txtLines);
   if (txtLines.length === 1) {
     gTxtBoxLocations.push(createTxtBox(w / 20, w / 20));
     return;
@@ -55,6 +58,16 @@ function createTxtBox(x, y) {
   };
 }
 
+function createTxtBoxForEmoji(x, y, size) {
+  return {
+    x,
+    y,
+    height: size,
+    width: size,
+    isDrag: false,
+  };
+}
+
 function deleteTxtBox() {
   var currLine = getCurrLineIdx();
   gTxtBoxLocations.splice(currLine, 1);
@@ -66,19 +79,20 @@ function renderMeme(forDisplay = false) {
   gTxtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     // check selected line and if it's not the first line - change the inputs value to the existing text
-    var isCurrLine = (meme.selectedLineIdx === index);
+    var isCurrLine = meme.selectedLineIdx === index;
     // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
 
-    if (txtInfo.isEmoji) { // emoji
+    if (txtInfo.isEmoji) {
+      // emoji
       // draw rectangle
-      console.log(txtInfo);
-      console.log(txtBox);
-      // gCtx.font = `${txtInfo.size * txtInfo.size}px`;
-      drawTransparentRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.size, txtInfo.size);
+      if (isCurrLine)
+        drawTransparentRect(txtBox.x, txtBox.y, txtInfo.size, txtInfo.size);
+      // add emoji
       gCtx.font = `${txtInfo.size}px Impact`;
       gCtx.fillText(txtInfo.txt, txtBox.x, txtBox.y + txtBox.height / 2);
-    } else { // normal text
+    } else {
+      // normal text
       if (isCurrLine && !isFirstLine()) {
         // clean up the editor
         setInputVal(txtInfo.txt);
@@ -125,19 +139,12 @@ function drawRect(x, y, isCurrLine, width, height) {
   gCtx.stroke();
 }
 
-function drawTransparentRect(x, y, isCurrLine, width, height) {
+function drawTransparentRect(x, y, width, height) {
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
-  if (isCurrLine) {
-    // if its on focus make the bgc transparent white
-    gCtx.fillStyle = "rgb(255 255 255 / 37%)";
-    gCtx.fillRect(x, y, width, height);
-  }
-  // gCtx.strokeStyle = "black";
-  // gCtx.stroke();
+  gCtx.fillStyle = "rgb(255 255 255 / 37%)";
+  gCtx.fillRect(x, y, width, height);
 }
-
-
 
 function resizeCanvas() {
   var elContainer = getElContainer();
@@ -187,9 +194,7 @@ function setBoxDrag(isDragBool) {
 
 function onDown(ev) {
   const pos = getEvPos(ev);
-  // console.log("onDown()");
   var currLine = isTxtBoxClicked(pos);
-  console.log(currLine);
   if (currLine === undefined) return;
 
   setCursor("grabbing");
@@ -205,12 +210,10 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
-  // console.log("onMove()");
   var idx = getCurrLineIdx();
   if (!gStartPos || !gTxtBoxLocations[idx].isDrag) return;
   setCursor("grabbing");
   const pos = getEvPos(ev);
-  // console.log(pos);
   gTxtBoxLocations[idx].x += pos.x - gStartPos.x;
   gTxtBoxLocations[idx].y += pos.y - gStartPos.y;
   gStartPos = pos;
@@ -219,7 +222,6 @@ function onMove(ev) {
 
 function onUp() {
   if (gStartPos === null) return;
-  // console.log("onUp()");
   setBoxDrag(false);
   gStartPos = null;
   setCursor("auto");

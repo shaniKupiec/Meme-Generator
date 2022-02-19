@@ -26,14 +26,12 @@ function startEditMeme(imgIdx, readyMemeIdx = -1) {
     createMeme(imgIdx);
     setTxtBoxes([]);
     document.querySelector(".btn-input-txt").value = "";
-    console.log("createMeme");
     setColors("#FFFFFF", "#000000");
   } else {
     // use existing meme
     var savedMemes = getSavedMemes();
     setMeme(savedMemes[readyMemeIdx].memeInfo);
     setTxtBoxes(savedMemes[readyMemeIdx].txtBoxesInfo);
-    console.log("setMeme");
   }
   initCanvas();
   renderEmojis();
@@ -60,7 +58,6 @@ function onSwitchLine() {
 function onSetLineTxt() {
   var meme = getMeme()
  if(meme.lines.length && meme.lines[gMeme.selectedLineIdx].isEmoji) setSelectedLine(-1)
-  
   changeTxtMeme();
   renderMeme();
 }
@@ -132,7 +129,6 @@ function onDownload(elLink) {
 // extra func - get, set and toggle
 function toggleFirstLine() {
   gFirstLine = !gFirstLine;
-  console.log(gFirstLine);
 }
 
 function isFirstLine() {
@@ -191,6 +187,8 @@ function renderEmojis() {
 
 function addEmoji(idxEmoji){
   addLine(true, gEmojis[idxEmoji]);
-  addTxtBox(true);
+  var currLine = getCurrLineIdx()
+  var lines = getLinesInfo()
+  addTxtBox(true, lines[currLine]);
   renderMeme();
 }

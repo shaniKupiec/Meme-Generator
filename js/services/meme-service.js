@@ -51,7 +51,6 @@ function ceateLine(isEmoji, emoji) {
   }
   return {
     txt: emoji.str,
-    // idx: emoji.index,
     size: gDefalutSize,
     isEmoji: true,
   };
@@ -84,7 +83,6 @@ function changeTxtMeme() {
     // currLine++;
     currLine = gMeme.lines.length - 1;
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
-    console.log(currLine);
   }
   // at each change of key we copy the wholl value of the input
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
@@ -92,7 +90,6 @@ function changeTxtMeme() {
 }
 
 function setColor(type, color) {
-  console.log(type, color);
   var currLine = gMeme.selectedLineIdx;
   gMeme.lines[currLine][type] = color;
 }

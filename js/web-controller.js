@@ -6,14 +6,16 @@ function init() {
   createImgs();
   switchPage(null, gCurrPage)
   getSavedFromStorge();
+  setSizeKeywords();
 }
 
 function upLoadPage(selector = false) { // what page to render
-  if(selector) updateCountMap(selector)
+  if(selector){
+    updateCountMap(selector)
+    setSizeKeywords();
+  }
   if (gCurrPage === "gallery") renderGalleryImgs(selector);
   else if (gCurrPage === "memes") renderGalleryMemes(selector);
-  else if (gCurrPage === "about") console.log("about")
-  else console.log("editor");
 }
 
 function getImgsForDisplay(selector){
@@ -25,7 +27,6 @@ function getImgsForDisplay(selector){
 
 function renderGalleryImgs(selector) {
   var imgs = getImgsForDisplay(selector)
-  console.log(imgs);
   var str = imgs.map(
     (img, index) =>
       `<img data-img="${index}" onclick="startEditMeme(${
@@ -43,7 +44,6 @@ function getMemesForDisplay(selector){
 }
 
 function renderGalleryMemes(selector) {
-  // console.log("renderGalleryMemes rendering meme gallery");
   var memes = getMemesForDisplay(selector);
   var str = memes.map((meme, index) => {
     var imgIdx = meme.memeInfo.selectedImgId;
@@ -52,7 +52,6 @@ function renderGalleryMemes(selector) {
     <img data-img="${imgIdx}" class="small-img" src="${meme.imgInfo.url}" alt="">
     </img> </div> `;
   });
-  console.log('renderGalleryMemes str to render', str);
   document.querySelector(".grid-container-gall").innerHTML = str.join("");
 }
 
@@ -72,7 +71,6 @@ function toggleEditor(isEditorShown) {
 function toggleMenu() {
   document.body.classList.toggle("menu-open");
   document.querySelector(".second-nav").classList.toggle("flex");
-  console.log("toggle menu");
 }
 
 function isMenuOpen() {
@@ -92,4 +90,13 @@ function switchPage(ev, pageName){
   } else gCurrPage = pageName;
 
   upLoadPage();
+}
+
+// keywords
+function setSizeKeywords(){
+  var map = getKeywordMap()
+  for (var keyword in map) {
+    var elKey = document.querySelector(`[data-keyword="${keyword}"]`)
+    elKey.style.fontSize = map[keyword] * 2 + 'px'
+  }
 }

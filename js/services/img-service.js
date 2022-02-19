@@ -1,6 +1,6 @@
 "use strict";
 
-var gKeywordSearchCountMap = { Funny: 12, Movie: 16, Politic: 2, Animel: 1,  Baby: 1, TV: 4};
+var gKeywordSearchCountMap = { Funny: 20, Movie: 14, Politic: 10, Animel: 7,  Baby: 7, TV: 4};
 var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";
@@ -54,7 +54,6 @@ function createSavedMeme(fileName, imgInfo, memeInfo, txtBoxesInfo) {
     txtBoxesInfo
   };
   gSavedMeme.push(savedMeme);
-  console.log('gSavedMeme',gSavedMeme);
   saveToStorage(SAVED_MEME_KEY, gSavedMeme);
 }
 
@@ -63,7 +62,10 @@ function getSavedMemes() {
 }
 
 // keywords
-
 function updateCountMap(selector){
   gKeywordSearchCountMap[selector]++;
+}
+
+function getKeywordMap(){
+  return gKeywordSearchCountMap
 }
