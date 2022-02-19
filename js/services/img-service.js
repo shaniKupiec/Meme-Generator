@@ -5,33 +5,7 @@ var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";
 
-function getSavedFromStorge(){ // called on Init
-    gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
-    // console.log('loadFromStorage(SAVED_MEME_KEY)' , gSavedMeme);
-    if (!gSavedMeme) gSavedMeme = [];
-    // console.log('gSavedMeme' , gSavedMeme);
-}
-
-function getSavedMemes() {
-  return gSavedMeme;
-}
-
-function createSavedMeme(fileName, imgInfo, memeInfo, txtBoxesInfo) {
-  var savedMeme = {
-    fileName,
-    imgInfo,
-    memeInfo,
-    txtBoxesInfo
-  };
-  gSavedMeme.push(savedMeme);
-  console.log('gSavedMeme',gSavedMeme);
-  saveToStorage(SAVED_MEME_KEY, gSavedMeme);
-}
-
-function getImgs() {
-  return gImgs;
-}
-
+// Imgs
 function createImgs() {
   gImgs = [];
   gImgs.push(createImg(0, ["Funny", "Movie"]));
@@ -60,4 +34,30 @@ function createImg(imgIdx, keywords) {
     url: `img/img-gall/${imgIdx}.jpg`,
     keywords,
   };
+}
+
+function getImgs() {
+  return gImgs;
+}
+
+// Memes
+function getSavedFromStorge(){
+    gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
+    if (!gSavedMeme) gSavedMeme = [];
+}
+
+function createSavedMeme(fileName, imgInfo, memeInfo, txtBoxesInfo) {
+  var savedMeme = {
+    fileName,
+    imgInfo,
+    memeInfo,
+    txtBoxesInfo
+  };
+  gSavedMeme.push(savedMeme);
+  console.log('gSavedMeme',gSavedMeme);
+  saveToStorage(SAVED_MEME_KEY, gSavedMeme);
+}
+
+function getSavedMemes() {
+  return gSavedMeme;
 }

@@ -5,12 +5,12 @@ function uploadImgToF() {
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        // console.log(`Your photo is available here: ${uploadedImgUrl}`)
+        console.log(`Your photo is available here: ${uploadedImgUrl}`)
         var facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
         
         console.log('Share your new Meme', facebookLink);
-        // alert('Share your new Meme on Facebook');
-        // alert(facebookLink);
+        alert('Share your new Meme on Facebook');
+        alert(facebookLink);
     }
     
     doUploadImg(imgDataUrl, onSuccess);

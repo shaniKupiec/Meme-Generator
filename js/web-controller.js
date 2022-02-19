@@ -8,11 +8,11 @@ function init() {
   getSavedFromStorge();
 }
 
-function filter(){
-  // var val = document.querySelector('#search-choice').value;
-  // console.log(val);
-  // document.querySelector('#search-choice').value = ''
-  upLoadPage()
+function upLoadPage() { // what page to render
+  if (gCurrPage === "gallery") renderGalleryImgs();
+  else if (gCurrPage === "memes") renderGalleryMemes();
+  else if (gCurrPage === "about") console.log("about")
+  else console.log("editor");
 }
 
 function getImgsForDisplay(){
@@ -20,13 +20,6 @@ function getImgsForDisplay(){
   var imgs = getImgs();
   if(!keyword.length) return imgs
   return imgs.filter(img => img.keywords.includes(keyword))
-}
-
-function upLoadPage() { // what page to render
-  if (gCurrPage === "gallery") renderGalleryImgs();
-  else if (gCurrPage === "memes") renderGalleryMemes();
-  else if (gCurrPage === "about") console.log("about")
-  else console.log("editor");
 }
 
 function renderGalleryImgs() {
@@ -44,7 +37,6 @@ function renderGalleryImgs() {
 function getMemesForDisplay(){
   var keyword = document.querySelector('#search-choice').value;
   var memes = getSavedMemes();
-  // console.log(memes);
   if(!keyword.length) return memes
   return memes.filter(memes => memes.imgInfo.keywords.includes(keyword))
 }
@@ -55,22 +47,12 @@ function renderGalleryMemes() {
   var str = memes.map((meme, index) => {
     var imgIdx = meme.memeInfo.selectedImgId;
     return `<div class="" onclick="startEditMeme(${imgIdx},${index})" >
-    ${meme.fileName}, created at : ${meme.memeInfo.createdAt}
+    ${meme.fileName}, created at : ${meme.memeInfo.createdAt} <br>
     <img data-img="${imgIdx}" class="small-img" src="${meme.imgInfo.url}" alt="">
     </img> </div> `;
   });
   console.log('renderGalleryMemes str to render', str);
   document.querySelector(".grid-container-gall").innerHTML = str.join("");
-}
-
-function toggleMenu() {
-  document.body.classList.toggle("menu-open");
-  document.querySelector(".second-nav").classList.toggle("flex");
-  console.log("toggle menu");
-}
-
-function isMenuOpen() {
-  return document.body.classList.length ? true : false;
 }
 
 function toggleEditor(isEditorShown) {
@@ -83,6 +65,17 @@ function toggleEditor(isEditorShown) {
     document.querySelector(".img-gallery").removeAttribute("hidden");
     document.querySelector(".main-content").setAttribute("hidden", "");
   }
+}
+
+// Menue
+function toggleMenu() {
+  document.body.classList.toggle("menu-open");
+  document.querySelector(".second-nav").classList.toggle("flex");
+  console.log("toggle menu");
+}
+
+function isMenuOpen() {
+  return document.body.classList.length ? true : false;
 }
 
 // switch between pages

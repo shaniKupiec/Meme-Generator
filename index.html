@@ -36,7 +36,7 @@
     <main class="img-gallery main-layout">
       <section class="search-nav">
         <!-- search nav : Lorem ipsum dolor sit amet. -->
-        <input list="search-keyword" id="search-choice" name="search-choice" placeholder="Search" onchange="filter()"/>
+        <input list="search-keyword" id="search-choice" name="search-choice" placeholder="Search" onchange="upLoadPage()"/>
         <datalist id="search-keyword">
           <option value="Funny"></option>
           <option value="Movie"></option>
@@ -166,15 +166,19 @@
               />
             </div>
 
-            <button class="txt btn11" onclick="save()">
+            <div class="btn11">
+              
+            </div>
+
+            <button class="txt btn12" onclick="save()">
               Save<br />
               <img class="mini-icon" src="img/img-icons/diskette.png" />
             </button>
-            <button class="txt btn12" onclick="uploadImgToF()">
+            <button class="txt btn13" onclick="uploadImgToF()">
               Share <br />
               <img class="mini-icon" src="img/img-icons/share.png" />
             </button>
-            <button class="txt btn13">
+            <button class="txt btn14">
               <a href="#" class="" onclick="onDownload(this)" download=""
                 >Download<br />
                 <img class="mini-icon" src="img/img-icons/download.png" />

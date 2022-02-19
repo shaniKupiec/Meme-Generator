@@ -32,10 +32,7 @@ function randomMeme(){
   renderMeme();
 }
 
-function toggleFirstLine() {
-  gFirstLine = !gFirstLine;
-}
-
+// function from HTML
 // switch focus on line
 function onSwitchLine() {
   switchLine();
@@ -97,7 +94,6 @@ function setTextColor() {
 // save download
 function save() {
   var name = prompt("name this meme");
-  // var imgs = getImgs()
   createSavedMeme(name, getImgs()[getMeme().selectedImgId], getMeme(), getTxtBoxes());
   alert("saved! you can see it on memes");
 }
@@ -108,7 +104,11 @@ function onDownload(elLink) {
   elLink.download = 'my-cool-meme';
 }
 
-// extra func - get and set
+// extra func - get, set and toggle
+function toggleFirstLine() {
+  gFirstLine = !gFirstLine;
+}
+
 function isFirstLine() {
   return gFirstLine;
 }
@@ -130,7 +130,6 @@ function setCursor(newVal){
 }
 
 function setColors(outLine, txt){
-  console.log('set');
   document.querySelector("[name=outlineColor]").value = outLine;
   document.querySelector("[name=textColor]").value = txt;
 }

@@ -56,6 +56,10 @@
   .meme-editor {
     flex-direction: column;
   }
+
+  .small-img{
+    height: 88px;
+  }
 }
 
 /* SMALL */
@@ -108,6 +112,10 @@
   .meme-editor {
     flex-direction: row;
   }
+
+  .small-img{
+    height: 88px;
+  }
 }
 
 /* MEDIUM */
@@ -137,6 +145,10 @@
 
   .txt {
     font-size: medium;
+  }
+
+  .small-img{
+    height: 100px;
   }
 }
 

@@ -37,19 +37,6 @@ function addTxtBox() {
   }
 }
 
-function getTxtBoxes() {
-  return txtBoxLocations;
-}
-
-function setTxtBoxes(txtBoxes) {
-  txtBoxLocations = txtBoxes;
-}
-
-function deleteTxtBox() {
-  var currLine = getCurrLineIdx();
-  txtBoxLocations.splice(currLine, 1);
-}
-
 function createTxtBox(x, y) {
   var w = gCanvas.width;
   return {
@@ -61,8 +48,13 @@ function createTxtBox(x, y) {
   };
 }
 
+function deleteTxtBox() {
+  var currLine = getCurrLineIdx();
+  txtBoxLocations.splice(currLine, 1);
+}
+
 function renderMeme(forDisplay = false) {
-  setImg();
+  drawImg();
   var meme = getMeme();
   txtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
@@ -96,7 +88,7 @@ function renderMeme(forDisplay = false) {
   });
 }
 
-function setImg() {
+function drawImg() {
   var meme = getMeme();
   var imgIdx = meme.selectedImgId;
   var elImg = getElImg(imgIdx);
@@ -119,6 +111,7 @@ function resizeCanvas() {
   var elContainer = getElContainer()
   gCanvas.width = elContainer.offsetWidth;
   gCanvas.height = elContainer.offsetWidth; // for not squre imgs
+  if(gCanvas.width < 400) setDefalutSize(30)
 }
 
 // drag and drop
@@ -155,9 +148,14 @@ function isTxtBoxClicked(clickedPos) {
   return lineIdx;
 }
 
+function setBoxDrag(isDragBool) {
+  var idx = getCurrLineIdx();
+  txtBoxLocations[idx].isDrag = isDragBool;
+}
+
 function onDown(ev) {
   const pos = getEvPos(ev);
-  console.log("onDown()");
+  // console.log("onDown()");
   var currLine = isTxtBoxClicked(pos);
   console.log(currLine);
   if (currLine === undefined) return;
@@ -175,13 +173,8 @@ function onDown(ev) {
   renderMeme();
 }
 
-function setBoxDrag(isDragBool) {
-  var idx = getCurrLineIdx();
-  txtBoxLocations[idx].isDrag = isDragBool;
-}
-
 function onMove(ev) {
-  console.log("onMove()");
+  // console.log("onMove()");
   var idx = getCurrLineIdx();
   if (!gStartPos || !txtBoxLocations[idx].isDrag) return;
   setCursor("grabbing")
@@ -196,7 +189,7 @@ function onMove(ev) {
 
 function onUp() {
   if (gStartPos === null) return;
-  console.log("onUp()");
+  // console.log("onUp()");
   setBoxDrag(false);
   gStartPos = null;
   setCursor("auto")
@@ -209,14 +202,14 @@ function getEvPos(ev) {
     x: ev.offsetX,
     y: ev.offsetY,
   };
-  // if (gTouchEvs.includes(ev.type)) {
-  //   ev.preventDefault();
-  //   ev = ev.changedTouches[0];
-  //   pos = {
-  //     x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-  //     y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-  //   };
-  // }
+  if (gTouchEvs.includes(ev.type)) {
+    ev.preventDefault();
+    ev = ev.changedTouches[0];
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+    };
+  }
   return pos;
 }
 
@@ -224,4 +217,13 @@ function getEvPos(ev) {
 function getCanvas() {
   renderMeme(true);
   return gCanvas;
+}
+
+// extra functions - get and set
+function getTxtBoxes() {
+  return txtBoxLocations;
+}
+
+function setTxtBoxes(txtBoxes) {
+  txtBoxLocations = txtBoxes;
 }

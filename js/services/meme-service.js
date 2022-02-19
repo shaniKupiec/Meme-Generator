@@ -1,6 +1,7 @@
 "use strict";
 
 var gMeme;
+var gDefalutSize = 40;
 // var gOutlineColor = "black";
 // var gTextColor = "white";
 var gFont = "Impact";
@@ -89,8 +90,9 @@ function changeAlign(position) {
 function changeFontSize(isIncrease) {
   if (!gMeme.lines.length) return;
   var currLine = gMeme.selectedLineIdx;
-  if (gMeme.lines[currLine].size < 25 || gMeme.lines[currLine].size > 60) return;
+  if ((gMeme.lines[currLine].size < 20 && !isIncrease) || (gMeme.lines[currLine].size > 60 && isIncrease)) return;
   gMeme.lines[currLine].size += isIncrease ? 3 : -3;
+  // console.log('gMeme.lines[currLine].size',gMeme.lines[currLine].size);
 }
 
 function addLine() {
@@ -101,7 +103,7 @@ function addLine() {
 function ceateLine() {
   return {
     txt: "",
-    size: 40,
+    size: gDefalutSize,
     align: "left",
     font: gFont,
     fontColor: '#FFFFFF',
@@ -133,4 +135,8 @@ function setMeme(meme) {
 function setRandLineTxt(){
   var currLine = gMeme.selectedLineIdx;
   gMeme.lines[currLine].txt = memesSentences[getRandomInt(0, 15)]
+}
+
+function setDefalutSize(newVal){
+  gDefalutSize = newVal
 }
