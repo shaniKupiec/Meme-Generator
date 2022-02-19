@@ -32,6 +32,7 @@
     text-align: center;
     margin-bottom: 20px;
     transition: color 0.3s;
+    color: white;
   }
 
   .nav-btn:hover {

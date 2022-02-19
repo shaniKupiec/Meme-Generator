@@ -2,7 +2,8 @@
 
 var gCanvas;
 var gCtx;
-var txtBoxLocations = [];
+var gTxtBoxLocations = [];
+var gEmojisLoactions = [];
 var gStartPos = null;
 const gTouchEvs = ["touchstart", "touchmove", "touchend"];
 
@@ -14,23 +15,29 @@ function initCanvas() {
 }
 
 // add txt box according to number of line
-function addTxtBox() {
-  var lines = getLinesInfo();
+function addTxtBox(isEmoji = false) {
   var w = gCanvas.width;
-  if (lines.length === 1) {
-    txtBoxLocations.push(createTxtBox(w / 20, w / 20));
+  if (isEmoji) {
+    gTxtBoxLocations.push(createTxtBox(w / 2, w / 2));
     return;
   }
-  if (lines.length === 2) {
-    txtBoxLocations.push(createTxtBox(w / 20, w - w / 20 - w / 7));
+  var lines = getLinesInfo();
+  var txtLines = lines.filter((line) => !line.isEmoji);
+  console.log(txtLines);
+  if (txtLines.length === 1) {
+    gTxtBoxLocations.push(createTxtBox(w / 20, w / 20));
     return;
   }
-  if (lines.length === 3) {
-    txtBoxLocations.push(createTxtBox(w / 20, w / 2 - w / 7 / 2));
+  if (txtLines.length === 2) {
+    gTxtBoxLocations.push(createTxtBox(w / 20, w - w / 20 - w / 7));
+    return;
+  }
+  if (txtLines.length === 3) {
+    gTxtBoxLocations.push(createTxtBox(w / 20, w / 2 - w / 7 / 2));
     return;
   } else {
     // random from the 4th txt box
-    txtBoxLocations.push(
+    gTxtBoxLocations.push(
       createTxtBox(w / 20, getRandomInt(w / 20, w - w / 20 - w / 7))
     );
     return;
@@ -50,41 +57,52 @@ function createTxtBox(x, y) {
 
 function deleteTxtBox() {
   var currLine = getCurrLineIdx();
-  txtBoxLocations.splice(currLine, 1);
+  gTxtBoxLocations.splice(currLine, 1);
 }
 
 function renderMeme(forDisplay = false) {
   drawImg();
   var meme = getMeme();
-  txtBoxLocations.forEach((txtBox, index) => {
+  gTxtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     // check selected line and if it's not the first line - change the inputs value to the existing text
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine && !isFirstLine()){
-      // clean up the editor
-      setInputVal(txtInfo.txt);
-      setColors(txtInfo.outlineColor, txtInfo.fontColor)
-    }
     // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
-    // draw rectangle
-    drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
-    // set font style
-    gCtx.strokeStyle = txtInfo.outlineColor;
-    gCtx.fillStyle = txtInfo.fontColor;
-    gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
-    // set align
-    var gap = gCanvas.width / 20;
-    gCtx.textAlign = txtInfo.align;
-    var txtX;
-    if (txtInfo.align === "left") txtX = txtBox.x + gap;
-    else if (txtInfo.align === "right") txtX = txtBox.x + txtBox.width - gap;
-    else txtX = txtBox.x + txtBox.width / 2;
-    var txtY = txtBox.y + txtBox.height - gap;
-    var maxWidth = txtBox.width - gap * 2;
-    // draw font
-    gCtx.fillText(txtInfo.txt, txtX, txtY, maxWidth);
-    gCtx.strokeText(txtInfo.txt, txtX, txtY, maxWidth);
+
+    if (txtInfo.isEmoji) { // emoji
+      // draw rectangle
+      console.log(txtInfo);
+      console.log(txtBox);
+      // gCtx.font = `${txtInfo.size * txtInfo.size}px`;
+      gCtx.font = `${txtInfo.size}px Impact`;
+      gCtx.fillText(txtInfo.txt, txtBox.x, txtBox.y + txtBox.height / 2);
+      drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.size, txtInfo.size);
+    } else { // normal text
+      if (isCurrLine && !isFirstLine()) {
+        // clean up the editor
+        setInputVal(txtInfo.txt);
+        setColors(txtInfo.outlineColor, txtInfo.fontColor);
+      }
+      // draw rectangle
+      drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
+      // set font style
+      gCtx.strokeStyle = txtInfo.outlineColor;
+      gCtx.fillStyle = txtInfo.fontColor;
+      gCtx.font = `${txtInfo.size}px ${txtInfo.font}`;
+      // set align
+      var gap = gCanvas.width / 20;
+      gCtx.textAlign = txtInfo.align;
+      var txtX;
+      if (txtInfo.align === "left") txtX = txtBox.x + gap;
+      else if (txtInfo.align === "right") txtX = txtBox.x + txtBox.width - gap;
+      else txtX = txtBox.x + txtBox.width / 2;
+      var txtY = txtBox.y + txtBox.height - gap;
+      var maxWidth = txtBox.width - gap * 2;
+      // draw font
+      gCtx.fillText(txtInfo.txt, txtX, txtY, maxWidth);
+      gCtx.strokeText(txtInfo.txt, txtX, txtY, maxWidth);
+    }
   });
 }
 
@@ -108,10 +126,10 @@ function drawRect(x, y, isCurrLine, width, height) {
 }
 
 function resizeCanvas() {
-  var elContainer = getElContainer()
+  var elContainer = getElContainer();
   gCanvas.width = elContainer.offsetWidth;
-  gCanvas.height = elContainer.offsetWidth; // for not squre imgs
-  if(gCanvas.width < 400) setDefalutSize(30)
+  gCanvas.height = elContainer.offsetWidth;
+  if (gCanvas.width < 400) setDefalutSize(30);
 }
 
 // drag and drop
@@ -139,7 +157,7 @@ function addTouchListeners() {
 // check if a txt box was clicked
 function isTxtBoxClicked(clickedPos) {
   var lineIdx;
-  txtBoxLocations.forEach((txtBox, index) => {
+  gTxtBoxLocations.forEach((txtBox, index) => {
     if (txtBox.x <= clickedPos.x && clickedPos.x - txtBox.x <= txtBox.width) {
       if (txtBox.y <= clickedPos.y && clickedPos.y - txtBox.y <= txtBox.height)
         lineIdx = index;
@@ -150,7 +168,7 @@ function isTxtBoxClicked(clickedPos) {
 
 function setBoxDrag(isDragBool) {
   var idx = getCurrLineIdx();
-  txtBoxLocations[idx].isDrag = isDragBool;
+  gTxtBoxLocations[idx].isDrag = isDragBool;
 }
 
 function onDown(ev) {
@@ -169,20 +187,18 @@ function onDown(ev) {
     x: ev.x - pos.x,
     y: ev.y - pos.y,
   };
-  // document.body.style.cursor = "grabbing";
   renderMeme();
 }
 
 function onMove(ev) {
   // console.log("onMove()");
   var idx = getCurrLineIdx();
-  if (!gStartPos || !txtBoxLocations[idx].isDrag) return;
-  setCursor("grabbing")
-  // document.body.style.cursor = "grabbing";
+  if (!gStartPos || !gTxtBoxLocations[idx].isDrag) return;
+  setCursor("grabbing");
   const pos = getEvPos(ev);
   // console.log(pos);
-  txtBoxLocations[idx].x += pos.x - gStartPos.x;
-  txtBoxLocations[idx].y += pos.y - gStartPos.y;
+  gTxtBoxLocations[idx].x += pos.x - gStartPos.x;
+  gTxtBoxLocations[idx].y += pos.y - gStartPos.y;
   gStartPos = pos;
   renderMeme();
 }
@@ -192,9 +208,7 @@ function onUp() {
   // console.log("onUp()");
   setBoxDrag(false);
   gStartPos = null;
-  setCursor("auto")
-
-  // document.body.style.cursor = "auto"; // normal cursor
+  setCursor("auto");
 }
 
 function getEvPos(ev) {
@@ -221,9 +235,9 @@ function getCanvas() {
 
 // extra functions - get and set
 function getTxtBoxes() {
-  return txtBoxLocations;
+  return gTxtBoxLocations;
 }
 
 function setTxtBoxes(txtBoxes) {
-  txtBoxLocations = txtBoxes;
+  gTxtBoxLocations = txtBoxes;
 }

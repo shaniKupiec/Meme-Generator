@@ -25,7 +25,7 @@
                 Gallery
               </li>
               <li class="memes nav-btn" onclick="switchPage(event, 'memes')">Memes</li>
-              <li class="about nav-btn" onclick="switchPage(event, 'about')">About</li>
+              <a class="about nav-btn" href="https://shanikupiec.github.io/GalleryProj/" onclick="switchPage(event, 'about')">About</a>
             </ul>
           </div>
           <button class="btn-menu" onclick="toggleMenu()">☰</button>
@@ -61,12 +61,14 @@
 
         <section class="editor">
           <section class="grid-container-editor">
+            <!-- row 1 -->
             <input
               type="text"
               class="txt btn-input-txt"
               placeholder="start type here"
             />
 
+            <!-- row 2 -->
             <img
               src="img/img-icons/up-and-down-opposite-double-arrows-side-by-side.png"
               alt=""
@@ -89,6 +91,7 @@
               onclick="onDeleteLine()"
             />
 
+            <!-- row 3 -->
             <img
               src="img/img-icons/increase font - icon.png"
               alt=""
@@ -125,6 +128,7 @@
               onclick="setAlign('right')"
             />
 
+            <!-- row 4 -->
             <select
               name="font"
               class="txt btn-select-font"
@@ -166,10 +170,14 @@
               />
             </div>
 
-            <div class="btn11">
-              
+            <!-- row 5 -->
+            <div class="btn11 flex emojis-nav-bar">
+              <span class="swipe-emoji" onclick="moveCarousel(-1)"><</span>
+              <span class="emojis-area flex"></span>
+              <span class="swipe-emoji" onclick="moveCarousel(1)">></span>
             </div>
 
+            <!-- row 6 -->
             <button class="txt btn12" onclick="save()">
               Save<br />
               <img class="mini-icon" src="img/img-icons/diskette.png" />

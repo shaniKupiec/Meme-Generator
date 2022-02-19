@@ -84,7 +84,6 @@ function switchPage(ev, pageName){
     if (!isMenuOpen()) ev.stopPropagation();
   }
   document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
-
   if(pageName !== 'editor'){
     if(gCurrPage === 'editor') toggleEditor(false)
     gCurrPage = pageName;

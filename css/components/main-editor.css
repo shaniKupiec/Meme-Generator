@@ -38,7 +38,7 @@ canvas {
   width: 30px;
 }
 
-.mini-icon{
+.mini-icon {
   width: 20px;
 }
 
@@ -46,6 +46,27 @@ canvas {
   grid-area: input;
 }
 
+.emojis-area {
+  padding: 0px 17px;
+  background-color: #ffd147c7;
+  border-radius: 10px;
+}
+
+.emoji-icon{
+  background-color: #ffffffb0;
+  border-radius: 11px;
+  border: 1px solid;
+}
+
+.emojis-nav-bar{
+  font-size: x-large;
+}
+
+.swipe-emoji{
+  padding: 5px;
+}
+
+/* grid-area */
 .btn1 {
   grid-area: swichLine;
 }
