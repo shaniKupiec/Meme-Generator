@@ -1,6 +1,6 @@
 "use strict";
 
-var gKeywordSearchCountMap = { funny: 12, movie: 16, politic: 2, animel: 1,  baby: 1, sport: 4};
+var gKeywordSearchCountMap = { Funny: 12, Movie: 16, Politic: 2, Animel: 1,  Baby: 1, TV: 4};
 var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";
@@ -16,9 +16,10 @@ function getSavedMemes() {
   return gSavedMeme;
 }
 
-function createSavedMeme(fileName, memeInfo, txtBoxesInfo) {
+function createSavedMeme(fileName, imgInfo, memeInfo, txtBoxesInfo) {
   var savedMeme = {
     fileName,
+    imgInfo,
     memeInfo,
     txtBoxesInfo
   };
@@ -33,24 +34,24 @@ function getImgs() {
 
 function createImgs() {
   gImgs = [];
-  gImgs.push(createImg(0, ["funny", "movie"]));
-  gImgs.push(createImg(1, ["funny", "politic"]));
-  gImgs.push(createImg(2, ["funny", "animel"]));
-  gImgs.push(createImg(3, ["funny", "baby", 'animel']));
-  gImgs.push(createImg(4, ["funny", "animel"]));
-  gImgs.push(createImg(5, ["funny", "baby"]));
-  gImgs.push(createImg(6, ["funny", "movie"]));
-  gImgs.push(createImg(7, ["funny", "baby"]));
-  gImgs.push(createImg(8, ["funny", "movie"]));
-  gImgs.push(createImg(9, ["funny", "baby"]));
-  gImgs.push(createImg(10, ["funny", "politic"]));
-  gImgs.push(createImg(11, ["funny", "sport"]));
-  gImgs.push(createImg(12, ["funny", "movie"]));
-  gImgs.push(createImg(13, ["funny", "movie"]));
-  gImgs.push(createImg(14, ["funny", "movie"]));
-  gImgs.push(createImg(15, ["funny", "movie"]));
-  gImgs.push(createImg(16, ["funny", "movie"]));
-  gImgs.push(createImg(17, ["funny", "politic"]));
+  gImgs.push(createImg(0, ["Funny", "Movie"]));
+  gImgs.push(createImg(1, ["Funny", "Politic"]));
+  gImgs.push(createImg(2, ["Funny", "Animel"]));
+  gImgs.push(createImg(3, ["Funny", "Baby", 'Animel']));
+  gImgs.push(createImg(4, ["Funny", "Animel"]));
+  gImgs.push(createImg(5, ["Funny", "Baby"]));
+  gImgs.push(createImg(6, ["Funny", "TV"]));
+  gImgs.push(createImg(7, ["Funny", "Baby"]));
+  gImgs.push(createImg(8, ["Funny", "Movie"]));
+  gImgs.push(createImg(9, ["Funny", "Baby"]));
+  gImgs.push(createImg(10, ["Funny", "Politic"]));
+  gImgs.push(createImg(11, ["Funny", "TV"]));
+  gImgs.push(createImg(12, ["Funny", "TV"]));
+  gImgs.push(createImg(13, ["Funny", "Movie"]));
+  gImgs.push(createImg(14, ["Funny", "Movie"]));
+  gImgs.push(createImg(15, ["Funny", "Movie"]));
+  gImgs.push(createImg(16, ["Funny", "Movie"]));
+  gImgs.push(createImg(17, ["Funny", "Politic"]));
 }
 
 function createImg(imgIdx, keywords) {

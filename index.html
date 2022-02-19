@@ -36,14 +36,14 @@
     <main class="img-gallery main-layout">
       <section class="search-nav">
         <!-- search nav : Lorem ipsum dolor sit amet. -->
-        <input list="keywords" id="search" name="search" placeholder="Search"/>
-        <datalist id="search">
+        <input list="search-keyword" id="search-choice" name="search-choice" placeholder="Search" onchange="filter()"/>
+        <datalist id="search-keyword">
           <option value="Funny"></option>
           <option value="Movie"></option>
           <option value="Politic"></option>
           <option value="Animel"></option>
           <option value="Baby"></option>
-          <option value="Sport"></option>
+          <option value="TV"></option>
         </datalist>
 
         <button onclick="randomMeme()">I'm Flexible</button>

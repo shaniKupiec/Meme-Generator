@@ -12,6 +12,7 @@ function startEditMeme(imgIdx, readyMemeIdx = -1) {
     setTxtBoxes([]);
     document.querySelector(".btn-input-txt").value = "";
     console.log('createMeme');
+    setColors('#FFFFFF', '#000000')
   } else { // use existing meme
     var savedMemes = getSavedMemes();
     setMeme(savedMemes[readyMemeIdx].memeInfo);
@@ -96,7 +97,8 @@ function setTextColor() {
 // save download
 function save() {
   var name = prompt("name this meme");
-  createSavedMeme(name, getMeme(), getTxtBoxes());
+  // var imgs = getImgs()
+  createSavedMeme(name, getImgs()[getMeme().selectedImgId], getMeme(), getTxtBoxes());
   alert("saved! you can see it on memes");
 }
 
@@ -107,7 +109,7 @@ function onDownload(elLink) {
 }
 
 // extra func - get and set
-function getFirstLine() {
+function isFirstLine() {
   return gFirstLine;
 }
 
@@ -125,4 +127,10 @@ function getElContainer(){
 
 function setCursor(newVal){
   document.querySelector("body").style.cursor = newVal
+}
+
+function setColors(outLine, txt){
+  console.log('set');
+  document.querySelector("[name=outlineColor]").value = outLine;
+  document.querySelector("[name=textColor]").value = txt;
 }

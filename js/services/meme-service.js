@@ -1,8 +1,8 @@
 "use strict";
 
 var gMeme;
-var gOutlineColor = "black";
-var gTextColor = "white";
+// var gOutlineColor = "black";
+// var gTextColor = "white";
 var gFont = "Impact";
 const memesSentences = [
   'I never eat falafel',
@@ -63,15 +63,13 @@ function changeTxtMeme() {
   }
   // at each change of key we copy the wholl value of the input
   gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
-  if (getFirstLine()) toggleFirstLine();
+  if (isFirstLine()) toggleFirstLine();
 }
 
 function setColor(type, color) {
-  gMeme.lines.forEach((line) => {
-    line[type] = color;
-  });
-  if (type === "outlineColor") gOutlineColor = color;
-  else gTextColor = color;
+  console.log(type, color);
+  var currLine = gMeme.selectedLineIdx;
+  gMeme.lines[currLine][type] = color
 }
 
 function setFont(newFont) {
@@ -106,8 +104,8 @@ function ceateLine() {
     size: 40,
     align: "left",
     font: gFont,
-    fontColor: gTextColor,
-    outlineColor: gOutlineColor,
+    fontColor: '#FFFFFF',
+    outlineColor: '#000000',
   };
 }
 

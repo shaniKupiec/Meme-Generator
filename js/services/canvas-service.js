@@ -68,8 +68,11 @@ function renderMeme(forDisplay = false) {
     var txtInfo = meme.lines[index];
     // check selected line and if it's not the first line - change the inputs value to the existing text
     var isCurrLine = meme.selectedLineIdx === index ? true : false;
-    if (isCurrLine && !getFirstLine())
-    setInputVal(txtInfo.txt);
+    if (isCurrLine && !isFirstLine()){
+      // clean up the editor
+      setInputVal(txtInfo.txt);
+      setColors(txtInfo.outlineColor, txtInfo.fontColor)
+    }
     // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
     // draw rectangle
