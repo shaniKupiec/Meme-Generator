@@ -8,22 +8,23 @@ function init() {
   getSavedFromStorge();
 }
 
-function upLoadPage() { // what page to render
-  if (gCurrPage === "gallery") renderGalleryImgs();
-  else if (gCurrPage === "memes") renderGalleryMemes();
+function upLoadPage(selector = false) { // what page to render
+  if(selector) updateCountMap(selector)
+  if (gCurrPage === "gallery") renderGalleryImgs(selector);
+  else if (gCurrPage === "memes") renderGalleryMemes(selector);
   else if (gCurrPage === "about") console.log("about")
   else console.log("editor");
 }
 
-function getImgsForDisplay(){
-  var keyword = document.querySelector('#search-choice').value;
+function getImgsForDisplay(selector){
+  var keyword = (selector) ? selector : document.querySelector('#search-choice').value;
   var imgs = getImgs();
   if(!keyword.length) return imgs
   return imgs.filter(img => img.keywords.includes(keyword))
 }
 
-function renderGalleryImgs() {
-  var imgs = getImgsForDisplay()
+function renderGalleryImgs(selector) {
+  var imgs = getImgsForDisplay(selector)
   console.log(imgs);
   var str = imgs.map(
     (img, index) =>
@@ -34,16 +35,16 @@ function renderGalleryImgs() {
   document.querySelector(".grid-container-gall").innerHTML = str.join("");
 }
 
-function getMemesForDisplay(){
-  var keyword = document.querySelector('#search-choice').value;
+function getMemesForDisplay(selector){
+  var keyword = (selector) ? selector : document.querySelector('#search-choice').value;
   var memes = getSavedMemes();
   if(!keyword.length) return memes
   return memes.filter(memes => memes.imgInfo.keywords.includes(keyword))
 }
 
-function renderGalleryMemes() {
-  console.log("renderGalleryMemes rendering meme gallery");
-  var memes = getMemesForDisplay();
+function renderGalleryMemes(selector) {
+  // console.log("renderGalleryMemes rendering meme gallery");
+  var memes = getMemesForDisplay(selector);
   var str = memes.map((meme, index) => {
     var imgIdx = meme.memeInfo.selectedImgId;
     return `<div class="" onclick="startEditMeme(${imgIdx},${index})" >
@@ -67,7 +68,7 @@ function toggleEditor(isEditorShown) {
   }
 }
 
-// Menue
+// Menu
 function toggleMenu() {
   document.body.classList.toggle("menu-open");
   document.querySelector(".second-nav").classList.toggle("flex");

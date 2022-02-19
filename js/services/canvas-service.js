@@ -66,7 +66,7 @@ function renderMeme(forDisplay = false) {
   gTxtBoxLocations.forEach((txtBox, index) => {
     var txtInfo = meme.lines[index];
     // check selected line and if it's not the first line - change the inputs value to the existing text
-    var isCurrLine = meme.selectedLineIdx === index ? true : false;
+    var isCurrLine = (meme.selectedLineIdx === index);
     // if we render not for diaplay (save / download / share) we don't put focus on selected line
     if (forDisplay) isCurrLine = false;
 
@@ -75,9 +75,9 @@ function renderMeme(forDisplay = false) {
       console.log(txtInfo);
       console.log(txtBox);
       // gCtx.font = `${txtInfo.size * txtInfo.size}px`;
+      drawTransparentRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.size, txtInfo.size);
       gCtx.font = `${txtInfo.size}px Impact`;
       gCtx.fillText(txtInfo.txt, txtBox.x, txtBox.y + txtBox.height / 2);
-      drawRect(txtBox.x, txtBox.y, isCurrLine, txtInfo.size, txtInfo.size);
     } else { // normal text
       if (isCurrLine && !isFirstLine()) {
         // clean up the editor
@@ -124,6 +124,20 @@ function drawRect(x, y, isCurrLine, width, height) {
   gCtx.strokeStyle = "black";
   gCtx.stroke();
 }
+
+function drawTransparentRect(x, y, isCurrLine, width, height) {
+  gCtx.beginPath();
+  gCtx.rect(x, y, width, height);
+  if (isCurrLine) {
+    // if its on focus make the bgc transparent white
+    gCtx.fillStyle = "rgb(255 255 255 / 37%)";
+    gCtx.fillRect(x, y, width, height);
+  }
+  // gCtx.strokeStyle = "black";
+  // gCtx.stroke();
+}
+
+
 
 function resizeCanvas() {
   var elContainer = getElContainer();

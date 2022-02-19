@@ -61,3 +61,9 @@ function createSavedMeme(fileName, imgInfo, memeInfo, txtBoxesInfo) {
 function getSavedMemes() {
   return gSavedMeme;
 }
+
+// keywords
+
+function updateCountMap(selector){
+  gKeywordSearchCountMap[selector]++;
+}
