@@ -1,10 +1,11 @@
-function uploadImgToF() {
+function uploadImgToF(isSave = false) {
     var canvas = getCanvas()
     const imgDataUrl = canvas.toDataURL("image/jpeg");
 
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        // if(isSave) set img url
         console.log(`Your photo is available here: ${uploadedImgUrl}`)
         var facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
         

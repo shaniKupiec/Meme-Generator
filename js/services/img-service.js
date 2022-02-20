@@ -1,6 +1,6 @@
 "use strict";
 
-var gKeywordSearchCountMap = { Funny: 20, Movie: 14, Politic: 10, Animel: 7,  Baby: 7, TV: 4};
+var gKeywordSearchCountMap = { Funny: 20, Movie: 14, Politic: 10, Animel: 7,  Baby: 7, TV: 4}; // animal change
 var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";

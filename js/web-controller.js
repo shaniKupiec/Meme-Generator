@@ -80,9 +80,7 @@ function isMenuOpen() {
 
 // switch between pages
 function switchPage(ev, pageName){
-  if(ev) {
-    if (!isMenuOpen()) ev.stopPropagation();
-  }
+  if(ev && !isMenuOpen()) ev.stopPropagation();
   document.querySelector(`.${gCurrPage}`).classList.remove('active')
   if(pageName !== 'editor'){
     if(gCurrPage === 'editor') toggleEditor(false)
