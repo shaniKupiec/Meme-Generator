@@ -2,15 +2,22 @@
     box-sizing: border-box;
 }
 
+html{
+    /* font-family: mont-reg; */
+}
+
 body{
     margin: 0;
 }
 
-nav{
-    
-}
-
 a{
     text-decoration: none;
-    color: black;
+    color: var(--clrBlack);
+}
+
+footer{
+    text-align: center;
+    height: 100px;
+    background-color:var(--clrNavBG);
+    margin: auto;
 }

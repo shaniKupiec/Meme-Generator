@@ -1,0 +1,21 @@
+.btn-white-orange {
+  background-color: var(--clrOrange);
+  border-radius: 7px;
+}
+
+.mini-icon {
+    width: 20px;
+  }
+
+.icon {
+  width: 40px;
+  background-color: var(--clrWhiteTrans);
+  padding: 5px;
+  border-radius: 7px;
+  transition: box-shadow 0.3s;
+}
+
+.icon:hover {
+  -webkit-box-shadow: 0px 0px 5px 4px var(--clrOrange);
+  box-shadow: 0px 0px 5px 4px var(--clrOrange);
+}

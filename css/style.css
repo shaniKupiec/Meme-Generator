@@ -1,7 +1,8 @@
 /* SETUP  */
 
 @import './setup/vars.css';
-/* @import '/css/setup/typography.css'; */
+/* @import './setup/typography.css'; */
+
 
 /* BASE */
 
@@ -16,8 +17,4 @@
 @import './components/main-gall.css';
 @import './components/main-editor.css';
 @import './components/screen.css';
-
-/* @import '/css/components/footer.css';
-@import '/css/components/card.css';
-@import '/css/components/header.css';
-@import '/css/components/screen.css'; */
+@import './components/btn.css';

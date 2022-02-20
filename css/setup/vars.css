@@ -1,0 +1,11 @@
+:root {
+    --clrNavBG: #FF7F00;
+    /* --clrEmojiBGArea: #e49929d3; */
+    /* --clrEmojiBG: #ffffffb0; */
+    --clrBlack: #000000;
+    --clrMainBC: #f6be7f75;
+    --clrBlackTrans: rgb(0 0 0 / 30%);
+    --clrWhiteTrans: rgb(255 255 255 / 90%);
+    --clrWhite: #FFFFFF;
+    --clrOrange: #ff8000d3;
+}

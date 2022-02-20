@@ -60,10 +60,14 @@ function createTxtBox(x, y) {
 
 function createTxtBoxForEmoji(x, y, size) {
   return {
-    x,
-    y,
-    height: size,
-    width: size,
+    // x: x,
+    // y: y,
+    x: x - size /2,
+    y: y - size /2,
+    // height: x - size /2,
+    // width: y - size /2,
+    height: size * 3,
+    width: size * 3,
     isDrag: false,
   };
 }
@@ -86,11 +90,19 @@ function renderMeme(forDisplay = false) {
     if (txtInfo.isEmoji) {
       // emoji
       // draw rectangle
-      if (isCurrLine)
-        drawTransparentRect(txtBox.x, txtBox.y, txtInfo.size, txtInfo.size);
-      // add emoji
+      if (isCurrLine){
+        drawTransparentRect(
+          txtBox.x,
+          txtBox.y,
+          txtBox.width,
+          txtBox.height,
+        );
+        console.log('isCurrLine',isCurrLine);
+        console.log('index',index);
+      }
       gCtx.font = `${txtInfo.size}px Impact`;
       gCtx.fillText(txtInfo.txt, txtBox.x, txtBox.y + txtBox.height / 2);
+      // add emoji
     } else {
       // normal text
       if (isCurrLine && !isFirstLine()) {
@@ -99,7 +111,7 @@ function renderMeme(forDisplay = false) {
         setColors(txtInfo.outlineColor, txtInfo.fontColor);
       }
       // draw rectangle
-      drawRect(txtBox.x, txtBox.y, isCurrLine, txtBox.width, txtBox.height);
+      if (isCurrLine) drawRect(txtBox.x, txtBox.y, txtBox.width, txtBox.height);
       // set font style
       gCtx.strokeStyle = txtInfo.outlineColor;
       gCtx.fillStyle = txtInfo.fontColor;
@@ -127,23 +139,20 @@ function drawImg() {
   gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawRect(x, y, isCurrLine, width, height) {
+function drawRect(x, y, width, height) {
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
-  if (isCurrLine) {
-    // if its on focus make the bgc transparent white
-    gCtx.fillStyle = "rgb(255 255 255 / 37%)";
-    gCtx.fillRect(x, y, width, height);
-  }
-  gCtx.strokeStyle = "black";
+  // gCtx.fillStyle = "rgb(255 255 255 / 37%)";
+  // gCtx.fillRect(x, y, width, height);
+  // gCtx.strokeStyle = "black";
   gCtx.stroke();
 }
 
 function drawTransparentRect(x, y, width, height) {
   gCtx.beginPath();
   gCtx.rect(x, y, width, height);
-  gCtx.fillStyle = "rgb(255 255 255 / 37%)";
-  gCtx.fillRect(x, y, width, height);
+  // gCtx.fillStyle = "rgb(255 255 255 / 37%)";
+  gCtx.stroke();
 }
 
 function resizeCanvas() {

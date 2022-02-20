@@ -82,11 +82,11 @@ function switchPage(ev, pageName){
   if(ev) {
     if (!isMenuOpen()) ev.stopPropagation();
   }
-  document.querySelector(`.${gCurrPage}`).style.boxShadow = ""
+  document.querySelector(`.${gCurrPage}`).classList.remove('active')
   if(pageName !== 'editor'){
     if(gCurrPage === 'editor') toggleEditor(false)
     gCurrPage = pageName;
-    document.querySelector(`.${gCurrPage}`).style.boxShadow = "inset 0px -7px 12px 4px rgb(255 191 78 / 63%)"
+    document.querySelector(`.${gCurrPage}`).classList.add('active')
   } else gCurrPage = pageName;
 
   upLoadPage();
