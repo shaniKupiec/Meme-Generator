@@ -10,9 +10,10 @@ function init() {
 }
 
 function upLoadPage(selector = false) { // what page to render
+  // if the user pressed the keywords, incease size and render
   if(selector){
     updateCountMap(selector)
-    setSizeKeywords();
+    setSizeKeywords(selector);
   }
   if (gCurrPage === "gallery") renderGalleryImgs(selector);
   else if (gCurrPage === "memes") renderGalleryMemes(selector);
@@ -93,10 +94,13 @@ function switchPage(ev, pageName){
 }
 
 // keywords
-function setSizeKeywords(){
+function setSizeKeywords(selector){
   var map = getKeywordMap()
   for (var keyword in map) {
     var elKey = document.querySelector(`[data-keyword="${keyword}"]`)
     elKey.style.fontSize = map[keyword] * 2 + 'px'
   }
+  console.log('changes');
+  if(selector === undefined) return 
+  document.querySelector('[name="search-choice"]').value = selector
 }

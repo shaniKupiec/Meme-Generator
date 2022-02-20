@@ -16,8 +16,7 @@
   <body onload="init()">
     <nav>
       <div class="main-nav flex space-between align-center main-layout">
-        <!-- <span class="logo" title="this is our logo">logo</span> -->
-        <img src="img/LOGO.png" class="logo" title="this is our logo" onclick="switchPage(event, 'gallery')"/>
+        <img src="img/LOGO.png" class="logo" onclick="switchPage(event, 'gallery')"/>
         <span>
           <div class="menu-container" onclick="toggleMenu()">
             <ul class="second-nav clean-list align-center">
@@ -34,7 +33,7 @@
     </nav>
 
     <main class="img-gallery main-layout">
-      <section class="search-nav flex space-between">
+      <section class="search-nav flex space-between align-center">
         <!-- search nav : Lorem ipsum dolor sit amet. -->
         <input list="search-keyword" id="search-choice" name="search-choice" placeholder="Search" onchange="upLoadPage()"/>
         <datalist id="search-keyword">
@@ -58,7 +57,7 @@
           <span data-keyword="TV" onclick="upLoadPage('TV')">TV</span>
         </div>
 
-        <button onclick="randomMeme()" class="btn-white-orangeight">I'm Flexible</button>
+        <button onclick="randomMeme()" class="btn-white-orange">I'm Flexible</button>
       </section>
       <section class="grid-container-gall"></section>
     </main>
@@ -190,15 +189,15 @@
             </div>
 
             <!-- row 6 -->
-            <button class="txt btn12 .btn-white-orange" onclick="save()">
+            <button class="txt btn12 btn-white-orange" onclick="save()">
               Save<br />
               <img class="mini-icon" src="img/img-icons/diskette.png" />
             </button>
-            <button class="txt btn13 .btn-white-orange" onclick="uploadImgToF()">
+            <button class="txt btn13 btn-white-orange" onclick="uploadImgToF()">
               Share <br />
               <img class="mini-icon" src="img/img-icons/share.png" />
             </button>
-            <button class="txt btn14 .btn-white-orange">
+            <button class="txt btn14 btn-white-orange">
               <a href="#" class="" onclick="onDownload(this)" download=""
                 >Download<br />
                 <img class="mini-icon" src="img/img-icons/download.png" />

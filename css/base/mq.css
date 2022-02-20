@@ -6,6 +6,10 @@
     /* background-color: #ff1b0b40; */
   }
 
+  .search-nav{
+    flex-direction: column;
+  }
+
   .menu-container {
     position: fixed;
     inset: 0;
@@ -73,6 +77,10 @@
 
   .btn-menu {
     display: none;
+  }
+
+  .search-nav{
+    flex-direction: row;
   }
 
   .main-nav .logo {

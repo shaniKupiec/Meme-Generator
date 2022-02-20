@@ -1,6 +1,5 @@
 .main-nav{
     height: 100px !important;
-    background-color:var(--clrNavBG);
 }
 
 .main-nav:first-child{

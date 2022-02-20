@@ -2,6 +2,7 @@
 
 @import './setup/vars.css';
 /* @import './setup/typography.css'; */
+@import './setup/tt.css';
 
 
 /* BASE */
@@ -16,5 +17,6 @@
 @import './components/header.css';
 @import './components/main-gall.css';
 @import './components/main-editor.css';
+@import './components/footer.css';
 @import './components/screen.css';
 @import './components/btn.css';

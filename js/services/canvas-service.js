@@ -2,8 +2,7 @@
 
 var gCanvas;
 var gCtx;
-var gTxtBoxLocations = [];
-var gEmojisLoactions = [];
+var gTxtBoxLocations = []; // contains all the rect, and lines(text and emojis) pos info
 var gStartPos = null;
 const gTouchEvs = ["touchstart", "touchmove", "touchend"];
 
@@ -18,7 +17,7 @@ function initCanvas() {
 function addTxtBox(isEmoji = false, emojiInfo = false) {
   var w = gCanvas.width;
   if (isEmoji) {
-    // add unique sizw to emoji txt box
+    // add unique size to emoji txt box
     var txtBox = createTxtBox(w / 2, w / 2);
     txtBox.height = emojiInfo.size;
     txtBox.width = emojiInfo.size;
@@ -26,7 +25,7 @@ function addTxtBox(isEmoji = false, emojiInfo = false) {
     return;
   }
   var lines = getLinesInfo();
-  var txtLines = lines.filter((line) => !line.isEmoji);
+  var txtLines = lines.filter((line) => !line.isEmoji); // filter only the lines that contains text
   if (txtLines.length === 1) {
     gTxtBoxLocations.push(createTxtBox(w / 20, w / 20));
     return;
@@ -60,12 +59,8 @@ function createTxtBox(x, y) {
 
 function createTxtBoxForEmoji(x, y, size) {
   return {
-    // x: x,
-    // y: y,
     x: x - size /2,
     y: y - size /2,
-    // height: x - size /2,
-    // width: y - size /2,
     height: size * 3,
     width: size * 3,
     isDrag: false,
@@ -89,7 +84,7 @@ function renderMeme(forDisplay = false) {
 
     if (txtInfo.isEmoji) {
       // emoji
-      // draw rectangle
+      // draw rectangle if it's the currLine
       if (isCurrLine){
         drawTransparentRect(
           txtBox.x,
@@ -97,8 +92,6 @@ function renderMeme(forDisplay = false) {
           txtBox.width,
           txtBox.height,
         );
-        console.log('isCurrLine',isCurrLine);
-        console.log('index',index);
       }
       gCtx.font = `${txtInfo.size}px Impact`;
       gCtx.fillText(txtInfo.txt, txtBox.x, txtBox.y + txtBox.height / 2);
@@ -106,11 +99,11 @@ function renderMeme(forDisplay = false) {
     } else {
       // normal text
       if (isCurrLine && !isFirstLine()) {
-        // clean up the editor
+        // set up the editors values
         setInputVal(txtInfo.txt);
         setColors(txtInfo.outlineColor, txtInfo.fontColor);
       }
-      // draw rectangle
+      // draw rectangle if it's the currLine
       if (isCurrLine) drawRect(txtBox.x, txtBox.y, txtBox.width, txtBox.height);
       // set font style
       gCtx.strokeStyle = txtInfo.outlineColor;
@@ -125,7 +118,7 @@ function renderMeme(forDisplay = false) {
       else txtX = txtBox.x + txtBox.width / 2;
       var txtY = txtBox.y + txtBox.height - gap;
       var maxWidth = txtBox.width - gap * 2;
-      // draw font
+      // draw the words
       gCtx.fillText(txtInfo.txt, txtX, txtY, maxWidth);
       gCtx.strokeText(txtInfo.txt, txtX, txtY, maxWidth);
     }
@@ -144,7 +137,7 @@ function drawRect(x, y, width, height) {
   gCtx.rect(x, y, width, height);
   // gCtx.fillStyle = "rgb(255 255 255 / 37%)";
   // gCtx.fillRect(x, y, width, height);
-  // gCtx.strokeStyle = "black";
+  gCtx.strokeStyle = "black";
   gCtx.stroke();
 }
 

@@ -17,7 +17,7 @@ var gEmojis = [
 const EMOJI_NAV_LENGHT = 3;
 var gIdxStart = 0;
 var gIdxEnd = EMOJI_NAV_LENGHT - 1;
-var gEmojisForDis = [gEmojis[0], gEmojis[1], gEmojis[2]];
+var gEmojisForDis = [gEmojis[0], gEmojis[1], gEmojis[2]]; // we can also define the array in loop
 
 function startEditMeme(imgIdx, readyMemeIdx = -1) {
   toggleEditor(true);
@@ -25,7 +25,7 @@ function startEditMeme(imgIdx, readyMemeIdx = -1) {
     // create new meme
     createMeme(imgIdx);
     setTxtBoxes([]);
-    document.querySelector(".btn-input-txt").value = "";
+    setInputVal("")
     setColors("#FFFFFF", "#000000");
   } else {
     // use existing meme
@@ -78,7 +78,7 @@ function onSetFont() {
 function onAddLineTxt() {
   // if the user start typing without a text box, we dont erase the text
   if (!gFirstLine) {
-    document.querySelector(".btn-input-txt").value = "";
+    setInputVal("");
   }
   addLine();
   addTxtBox();
@@ -137,6 +137,10 @@ function isFirstLine() {
 
 function setInputVal(newVal) {
   document.querySelector(".btn-input-txt").value = newVal;
+}
+
+function getInputVal() {
+  return document.querySelector(".btn-input-txt").value;
 }
 
 function getElImg(imgIdx) {

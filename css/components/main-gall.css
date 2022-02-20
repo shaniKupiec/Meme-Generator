@@ -11,6 +11,23 @@
   height: 150px;
 }
 
-.search-nav{
+.search-nav {
   padding: 10px;
+}
+
+.search-nav > * {
+  cursor: pointer;
+}
+
+.search-keyword {
+  height: min-content;
+}
+
+img[data-img] {
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+img[data-img]:hover {
+  -webkit-box-shadow: 0px 5px 15px 5px var(--clrShadow);
+  box-shadow: 0px 5px 15px 5px var(--clrShadow);
 }

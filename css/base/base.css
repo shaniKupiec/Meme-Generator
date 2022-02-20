@@ -8,11 +8,16 @@ html{
 
 body{
     margin: 0;
+    background-color: var(--clrMainBC);
 }
 
 a{
     text-decoration: none;
     color: var(--clrBlack);
+}
+
+nav{
+    background-color:var(--clrNavBG);
 }
 
 footer{

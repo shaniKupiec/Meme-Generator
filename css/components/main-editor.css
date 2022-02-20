@@ -2,6 +2,16 @@
   flex-basis: 50%;
 }
 
+.meme-editor{
+  align-items: center;
+  justify-content: space-between;
+}
+
+.canvas-container{
+  height: auto;
+  margin: 5px auto;
+}
+
 .grid-container-editor {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -35,18 +45,22 @@
 
 .emojis-area {
   padding: 0px 17px;
-  background-color: var(--clrOrange);
-  border-radius: 10px;
+  /* background-color: var(--clrOrange); */
+  
 }
 
 .emoji-icon {
   background-color: var(--clrWhiteTrans);
   border-radius: 11px;
   border: 1px solid;
+  margin: 0 5px;
 }
 
 .emojis-nav-bar {
   font-size: x-large;
+  background-color: var(--clrOrange);
+  border-radius: 10px;
+  padding: 4px 5px;
 }
 
 .swipe-emoji {

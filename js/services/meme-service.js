@@ -2,8 +2,6 @@
 
 var gMeme;
 var gDefalutSize = 40;
-// var gOutlineColor = "black";
-// var gTextColor = "white";
 var gFont = "Impact";
 const memesSentences = [
   "I never eat falafel",
@@ -34,7 +32,7 @@ function createMeme(imgIdx) {
 
 function addLine(isEmoji = false, emoji = false) {
   gMeme.lines.push(ceateLine(isEmoji, emoji));
-  gMeme.selectedLineIdx = gMeme.lines.length - 1;
+  gMeme.selectedLineIdx = gMeme.lines.length - 1; // put focus on the line the user created
 }
 
 function ceateLine(isEmoji, emoji) {
@@ -62,7 +60,7 @@ function deleteLine() {
   if (!gMeme.lines.length) {
     // if the uer delete the last line
     gMeme.selectedLineIdx = -1;
-    document.querySelector(".btn-input-txt").value = "";
+    setInputVal('')
   } else gMeme.selectedLineIdx = 0;
 }
 
@@ -85,7 +83,7 @@ function changeTxtMeme() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
   }
   // at each change of key we copy the wholl value of the input
-  gMeme.lines[currLine].txt = document.querySelector(".btn-input-txt").value;
+  gMeme.lines[currLine].txt = getInputVal();
   if (isFirstLine()) toggleFirstLine();
 }
 
