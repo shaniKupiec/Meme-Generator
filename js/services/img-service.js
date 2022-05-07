@@ -1,6 +1,6 @@
 "use strict";
 
-var gKeywordSearchCountMap = { Funny: 20, Movie: 14, Politic: 10, Animel: 7,  Baby: 7, TV: 4}; // animal change
+var gKeywordSearchCountMap = { Funny: 20, Movie: 14, Politic: 10, Animal: 7,  Baby: 7, TV: 4}; // animal change
 var gImgs;
 var gSavedMeme = [];
 const SAVED_MEME_KEY = "savedMemeData";
@@ -10,9 +10,9 @@ function createImgs() {
   gImgs = [];
   gImgs.push(createImg(0, ["Funny", "Movie"]));
   gImgs.push(createImg(1, ["Funny", "Politic"]));
-  gImgs.push(createImg(2, ["Funny", "Animel"]));
-  gImgs.push(createImg(3, ["Funny", "Baby", 'Animel']));
-  gImgs.push(createImg(4, ["Funny", "Animel"]));
+  gImgs.push(createImg(2, ["Funny", "Animal"]));
+  gImgs.push(createImg(3, ["Funny", "Baby", 'Animal']));
+  gImgs.push(createImg(4, ["Funny", "Animal"]));
   gImgs.push(createImg(5, ["Funny", "Baby"]));
   gImgs.push(createImg(6, ["Funny", "TV"]));
   gImgs.push(createImg(7, ["Funny", "Baby"]));
@@ -41,7 +41,7 @@ function getImgs() {
 }
 
 // Memes
-function getSavedFromStorge(){
+function getSavedFromStorage(){
     gSavedMeme = loadFromStorage(SAVED_MEME_KEY);
     if (!gSavedMeme) gSavedMeme = [];
 }

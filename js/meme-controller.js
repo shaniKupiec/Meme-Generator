@@ -14,9 +14,9 @@ var gEmojis = [
   createEmoji(5, "📌"),
   createEmoji(6, "🎶"),
 ];
-const EMOJI_NAV_LENGHT = 3;
+const EMOJI_NAV_LENGTH = 3;
 var gIdxStart = 0;
-var gIdxEnd = EMOJI_NAV_LENGHT - 1;
+var gIdxEnd = EMOJI_NAV_LENGTH - 1;
 var gEmojisForDis = [gEmojis[0], gEmojis[1], gEmojis[2]]; // we can also define the array in loop
 
 function startEditMeme(imgIdx, readyMemeIdx = -1) {

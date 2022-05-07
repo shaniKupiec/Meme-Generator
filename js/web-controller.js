@@ -5,12 +5,12 @@ var gCurrPage = "gallery";
 function init() {
   createImgs();
   switchPage(null, gCurrPage)
-  getSavedFromStorge();
+  getSavedFromStorage();
   setSizeKeywords();
 }
 
 function upLoadPage(selector = false) { // what page to render
-  // if the user pressed the keywords, incease size and render
+  // if the user pressed the keywords, increase size and render
   if(selector){
     updateCountMap(selector)
     setSizeKeywords(selector);
