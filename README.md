@@ -7,7 +7,7 @@
 - Search
 - Generate random meme
 - Meme CRUD
-- Edit meme: font, font size, font color, outline color, font location, drag n drop and stickers
+- Edit meme: font, font size, font color, outline color, font location, drag and drop and stickers
 - Saving meme in local storage
 - Sharing meme on Facebook
 - Download meme
